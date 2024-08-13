@@ -1,0 +1,38 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs --port 8000",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
+  },
+  "dependencies": {
+    "@iconify/json": "^2.2.87",
+    "@types/lodash-es": "^4.17.8",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@unocss/preset-icons": "^0.53.4",
+    "@vite-pwa/vitepress": "^0.2.0",
+    "@vitejs/plugin-react": "^4.0.1",
+    "ahooks": "^3.7.8",
+    "ant-design-vue": "^4.0.0",
+    "antd": "^5.7.0",
+    "axios": "^1.4.0",
+    "busuanzi.pure.js": "^1.0.3",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.11.9",
+    "increase-memory-limit": "^1.0.7",
+    "lodash-es": "^4.17.21",
+    "mermaid": "^10.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sitemap": "^7.1.1",
+    "typescript": "^5.1.6",
+    "unocss": "^0.53.4",
+    "unplugin-vue-components": "^0.25.1",
+    "vite-plugin-pwa": "^0.16.4",
+    "vitepress": "^1.0.0-rc.8",
+    "vitepress-plugin-mermaid": "^2.0.13",
+    "windicss": "^3.5.6"
+  }
+}

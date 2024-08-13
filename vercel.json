@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/indexnow/:path*",
+      "destination": "https://www.bing.com/indexnow/:path*"
+    },
+    {
+      "source": "/urls/:path*",
+      "destination": "http://data.zz.baidu.com/urls/:path*"
+    }
+  ]
+}
