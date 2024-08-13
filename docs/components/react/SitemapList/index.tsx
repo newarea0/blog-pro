@@ -1,15 +1,15 @@
 /**
  * 网址一栏表
  */
-import React, { lazy, Suspense } from "react";
+import React, { Suspense, lazy } from 'react'
 
-const SitemapList = lazy(() => import("./SitemapList"));
+const SitemapList = lazy(() => import('./SitemapList'))
 
 function SitemapListLazy() {
   return (
     <Suspense fallback={<div>loading...</div>}>
       <SitemapList />
     </Suspense>
-  );
+  )
 }
-export default SitemapListLazy;
+export default SitemapListLazy

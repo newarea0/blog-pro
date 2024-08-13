@@ -47,7 +47,7 @@ const root = (
     <li>Hello</li>
     <li>World</li>
   </ul>
-);
+)
 ```
 
 显然 JSX 写法更便于页面的编写与维护，且简单、直观。
@@ -68,7 +68,7 @@ const root = (
     <img src="xxx.jpg" />
     {1 === 1 && <div>第二个组件内容！</div>}
   </div>
-);
+)
 ```
 
 ## 4、JSX 注释
@@ -78,7 +78,9 @@ const root = (
 ```jsx
 <ul className="list">
   {/* 1、单行注释 */}
-  <li>第一个组件内容！</li> // 2、行尾注释
+  <li>第一个组件内容！</li>
+  {' '}
+  // 2、行尾注释
   <li>第二个组件内容！</li>
   {/*
         3、多行注释
@@ -94,11 +96,11 @@ const root = (
 变量在 JSX 使用，需要用大括号 { } 包裹；注意：使用的变量需要提前定义。如下。
 
 ```jsx
-const MyComponent = () => {
-  const text = "Hello World！";
-  return <div>{text}</div>;
-};
-export default MyComponent;
+function MyComponent() {
+  const text = 'Hello World！'
+  return <div>{text}</div>
+}
+export default MyComponent
 ```
 
 ## 6、JSX 嵌入表达式
@@ -108,27 +110,33 @@ export default MyComponent;
 - 函数调用
 
 ```jsx
-const MyComponent = () => {
-  const isFinish = true;
+function MyComponent() {
+  const isFinish = true
 
   const calc = () => {
-    const a = 1;
-    const b = 2;
-    return a + b;
-  };
+    const a = 1
+    const b = 2
+    return a + b
+  }
 
   return (
     <div>
-      {/*1.运算符表达式*/}
-      <span>2 + 3 的和为：{2 + 3}</span>
-      {/*2.三元表达式*/}
-      <span>家庭作业是否完成：{isFinish ? "是" : "否"}</span>
-      {/*3.进行函数调用*/}
+      {/* 1.运算符表达式 */}
+      <span>
+        2 + 3 的和为：
+        {2 + 3}
+      </span>
+      {/* 2.三元表达式 */}
+      <span>
+        家庭作业是否完成：
+        {isFinish ? '是' : '否'}
+      </span>
+      {/* 3.进行函数调用 */}
       <span>{calc()}</span>
     </div>
-  );
-};
-export default MyComponent;
+  )
+}
+export default MyComponent
 ```
 
 ## 7、JSX 绑定属性
@@ -136,10 +144,10 @@ export default MyComponent;
 注意：在给元素绑定 style 时，外层的大括号是表示可传入变量或者表达式。而内部的大括号是一个对象，它里面是键值对，表示元素的样式属性及属性值。另外，当属性是由多个单词组成的时候，需要用驼峰命名法来表示，例如：fontSize
 
 ```jsx
-const MyComponent = () => {
-  const title = "我是标题的全部内容！";
-  const url = "https://www.baidu.com";
-  const className = "span";
+function MyComponent() {
+  const title = '我是标题的全部内容！'
+  const url = 'https://www.baidu.com'
+  const className = 'span'
 
   return (
     <div>
@@ -148,13 +156,13 @@ const MyComponent = () => {
       <a href={url}>百度一下</a>
       {/* 2.绑定class */}
       <span className={className}>我是span标签</span>
-      <span className={["tag", "span"].join(" ")}>我是span标签2</span>
+      <span className={['tag', 'span'].join(' ')}>我是span标签2</span>
       {/* 3.绑定style */}
-      <span style={{ color: "red", fontSize: 16 }}>我的字体颜色是红色</span>
+      <span style={{ color: 'red', fontSize: 16 }}>我的字体颜色是红色</span>
     </div>
-  );
-};
-export default MyComponent;
+  )
+}
+export default MyComponent
 ```
 
 ## 8、JSX 绑定事件
@@ -167,25 +175,25 @@ export default MyComponent;
 - 如果函数过于简单，可在 JSX 中直接编写函数内容
 
 ```jsx
-const MyComponent = () => {
+function MyComponent() {
   const onClick = () => {
-    window.alert("您点击了按钮1");
-  };
+    window.alert('您点击了按钮1')
+  }
 
   return (
     <div>
       <button onClick={onClick}>按钮1</button>
       <button
         onClick={() => {
-          window.alert("您点击了按钮2");
+          window.alert('您点击了按钮2')
         }}
       >
         按钮2
       </button>
     </div>
-  );
-};
-export default MyComponent;
+  )
+}
+export default MyComponent
 ```
 
 ## 9、JSX 条件渲染
@@ -197,13 +205,13 @@ export default MyComponent;
 - 方式三：与运算符&&，如果条件成立，渲染&&后面的组件；如果条件不成立，则都不渲染
 
 ```jsx
-const MyComponent = () => {
+function MyComponent() {
   const renderTitle = (key) => {
     if (key > 1) {
-      return <span>我是标题1</span>;
+      return <span>我是标题1</span>
     }
-    return <span>我是标题2</span>;
-  };
+    return <span>我是标题2</span>
+  }
 
   return (
     <div>
@@ -211,9 +219,9 @@ const MyComponent = () => {
       {2 > 1 ? <span>我会显示出来</span> : <span>我会隐藏</span>}
       {2 > 1 && <span>我会显示出来</span>}
     </div>
-  );
-};
-export default MyComponent;
+  )
+}
+export default MyComponent
 ```
 
 ## 10、JSX 列表渲染
@@ -221,18 +229,18 @@ export default MyComponent;
 我们通常使用 Javascript 的 map 函数来处理 JSX 数组列表循环渲染；如下
 
 ```jsx
-const MyComponent = () => {
-  const array = ["1", "2", "3", "4"];
+function MyComponent() {
+  const array = ['1', '2', '3', '4']
 
   return (
     <ul>
-      {array.map((i) => (
+      {array.map(i => (
         <li key={i}>{i}</li>
       ))}
     </ul>
-  );
-};
-export default MyComponent;
+  )
+}
+export default MyComponent
 ```
 
 注意：在渲染是，我们需要给渲染项添加一个 key，不然会报错：warning: Each child in a list should have a unique "key" prop.

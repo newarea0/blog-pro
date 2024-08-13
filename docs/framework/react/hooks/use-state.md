@@ -9,21 +9,21 @@
 ## useState 返回值
 
 ```js
-const [state, setState] = useState(initialState);
+const [state, setState] = useState(initialState)
 ```
 
 useState 返回一个长度为 2 的数组。通常，我们这样定义状态变量：
 
 ```js
-const [key, setKey] = useState(0);
+const [key, setKey] = useState(0)
 ```
 
 但实际上，我们也可以这样写：
 
 ```js
-const keyArr = useState(0);
-const key = keyArr[0];
-const setKey = keyArr[1];
+const keyArr = useState(0)
+const key = keyArr[0]
+const setKey = keyArr[1]
 ```
 
 这种写法显得有些繁琐，但它有助于我们理解 useState 的返回值类型。
@@ -38,15 +38,15 @@ useState 定义初始值有两种用法：
 ### 传入一个初始值
 
 ```js
-const [key, setKey] = useState(0);
+const [key, setKey] = useState(0)
 ```
 
 ### 传入一个函数
 
 ```js
 const [key, setKey] = useState(() => {
-  return 0;
-});
+  return 0
+})
 ```
 
 ## useState 更新状态
@@ -67,7 +67,7 @@ const [key, setKey] = useState(() => {
 
 ```javascript
 function handleClick() {
-  setCount(count + 1);
+  setCount(count + 1)
 }
 ```
 
@@ -80,8 +80,8 @@ function handleClick() {
 ```javascript
 function handleClickFn() {
   setCount((prevCount) => {
-    return prevCount + 1;
-  });
+    return prevCount + 1
+  })
 }
 ```
 
@@ -99,9 +99,9 @@ function handleClickFn() {
 
 ```javascript
 function handleMultipleUpdates() {
-  setCount(count + 1);
-  setCount(count + 1);
-  setCount(count + 1);
+  setCount(count + 1)
+  setCount(count + 1)
+  setCount(count + 1)
 }
 ```
 
@@ -111,9 +111,9 @@ function handleMultipleUpdates() {
 
 ```javascript
 function handleMultipleUpdatesFn() {
-  setCount((prevCount) => prevCount + 1);
-  setCount((prevCount) => prevCount + 1);
-  setCount((prevCount) => prevCount + 1);
+  setCount(prevCount => prevCount + 1)
+  setCount(prevCount => prevCount + 1)
+  setCount(prevCount => prevCount + 1)
 }
 ```
 
@@ -133,13 +133,13 @@ useState 的初始状态参数支持惰性初始化。这意味着你可以传�
 假设你有一个大的 JSON 数据，你只想在组件首次渲染时解析它：
 
 ```jsx
-const bigJsonData = "{...}"; // 大量的 JSON 数据
+const bigJsonData = '{...}' // 大量的 JSON 数据
 
 function MyComponent() {
   const [data, setData] = useState(() => {
-    console.log("Parsing JSON");
-    return JSON.parse(bigJsonData);
-  });
+    console.log('Parsing JSON')
+    return JSON.parse(bigJsonData)
+  })
 
   // ... 其他代码
 }
@@ -161,14 +161,14 @@ useState 不是异步函数。
 
 ```jsx
 function MyComponent() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const handleClick = () => {
-    setCount(count + 1);
-    console.log(count);
-  };
+    setCount(count + 1)
+    console.log(count)
+  }
 
-  return <button onClick={handleClick}>Click me</button>;
+  return <button onClick={handleClick}>Click me</button>
 }
 ```
 
@@ -179,35 +179,35 @@ function MyComponent() {
 ## 利用 useState 封装自定义 Hook-useSetState
 
 ```js
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react'
 
 /**
  * 一个自定义 hook，提供 setState 功能，但与 class 组件中的 setState 类似，
  * 它允许合并状态更新，而不是替换它。
  *
- * @param {Object} initialState - 初始状态，默认为空对象。
+ * @param {object} initialState - 初始状态，默认为空对象。
  * @returns {Array} 返回一个数组，第一个元素是当前状态，第二个元素是合并状态的函数。
  */
-const useSetState = (initialState = {}) => {
+function useSetState(initialState = {}) {
   // 使用 useState hook 设置初始状态
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState)
 
   // 定义一个合并状态的函数
   const setMergeState = useCallback((patch) => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState, // 保留之前的状态
       // 如果 patch 是一个函数，那么使用该函数返回的结果来更新状态，
       // 否则直接使用 patch 对象来更新状态。
-      ...(typeof patch === "function" ? patch(prevState) : patch),
-    }));
-  }, []); // 使用空依赖数组，确保该回调函数不会重新创建
+      ...(typeof patch === 'function' ? patch(prevState) : patch),
+    }))
+  }, []) // 使用空依赖数组，确保该回调函数不会重新创建
 
   // 返回当前状态和合并状态的函数
-  return [state, setMergeState];
-};
+  return [state, setMergeState]
+}
 
 // 导出自定义 hook
-export default useSetState;
+export default useSetState
 ```
 
 这个自定义 Hook `useSetState` 的好处主要有以下几点：

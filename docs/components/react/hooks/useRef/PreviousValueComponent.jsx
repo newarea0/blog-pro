@@ -1,23 +1,28 @@
-import { useRef, useState, useEffect } from "react";
-import { Card, Button } from "antd";
+import { useEffect, useRef, useState } from 'react'
 
 function PreviousValueComponent() {
-  const [count, setCount] = useState(0);
-  const prevCountRef = useRef();
+  const [count, setCount] = useState(0)
+  const prevCountRef = useRef()
 
   useEffect(() => {
-    prevCountRef.current = count;
-  }, [count]);
+    prevCountRef.current = count
+  }, [count])
 
   return (
     <Card title="案例 demo">
-      <p>Current count: {count}</p>
-      <p>Previous count: {prevCountRef.current}</p>
+      <p>
+        Current count:
+        {count}
+      </p>
+      <p>
+        Previous count:
+        {prevCountRef.current}
+      </p>
       <Button onClick={() => setCount(count + 1)} type="primary">
         Increment
       </Button>
     </Card>
-  );
+  )
 }
 
-export default PreviousValueComponent;
+export default PreviousValueComponent

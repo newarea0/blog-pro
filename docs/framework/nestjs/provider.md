@@ -8,7 +8,7 @@
 
 ```ts [user.service.ts]
 // user.service.ts
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserService {
@@ -16,39 +16,39 @@ export class UserService {
     return [
       {
         id: 1,
-        name: "John Doe",
-        email: "john@doe.com",
-        password: "123456",
-        createdAt: "2020-01-01",
-        updatedAt: "2020-01-01",
+        name: 'John Doe',
+        email: 'john@doe.com',
+        password: '123456',
+        createdAt: '2020-01-01',
+        updatedAt: '2020-01-01',
       },
-    ];
+    ]
   }
 }
 ```
 
 ```ts [user.controller.ts]
 // user.controller.ts
-import { Controller, Get } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { Controller, Get } from '@nestjs/common'
+import { UserService } from './user.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   // 构造器注入
   constructor(private readonly userService: UserService) {}
 
-  @Get("list")
+  @Get('list')
   async getUser() {
-    return await this.userService.getUser();
+    return await this.userService.getUser()
   }
 }
 ```
 
 ```ts [user.module.ts]
 // user.module.ts
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   controllers: [UserController],
@@ -67,17 +67,17 @@ export class UserModule {}
 上述是通过构造器注入的方式，也可以通过 `@Inject` 装饰器手动注入。
 
 ```ts
-import { Controller, Get, Inject } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { Controller, Get, Inject } from '@nestjs/common'
+import { UserService } from './user.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   // @Inject 手动注入
   constructor(@Inject(UserService) private readonly userService: UserService) {}
 
-  @Get("list")
+  @Get('list')
   async getUser() {
-    return await this.userService.getUser();
+    return await this.userService.getUser()
   }
 }
 ```
@@ -108,7 +108,7 @@ class UserModule {}
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useClass: UserService,
     },
   ],
@@ -119,17 +119,17 @@ export class UserModule {}
 需要注意的是，provide 指定的字符串，在注入时需要使用 @Inject('user') 手动注入了。
 
 ```ts
-import { Controller, Get, Inject } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { Controller, Get, Inject } from '@nestjs/common'
+import { UserService } from './user.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   // @Inject 手动注入
-  constructor(@Inject("user") private readonly userService: UserService) {}
+  constructor(@Inject('user') private readonly userService: UserService) {}
 
-  @Get("list")
+  @Get('list')
   async getUser() {
-    return await this.userService.getUser();
+    return await this.userService.getUser()
   }
 }
 ```
@@ -141,22 +141,22 @@ export class UserController {
 ::: code-group
 
 ```ts [user.module.ts]
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useClass: UserService,
     },
     // 值注入
     {
-      provide: "userInfo",
+      provide: 'userInfo',
       useValue: {
-        name: "张三",
+        name: '张三',
         age: 18,
       },
     },
@@ -166,22 +166,22 @@ export class UserModule {}
 ```
 
 ```ts [user.controller.ts]
-import { Controller, Get, Inject } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { Controller, Get, Inject } from '@nestjs/common'
+import { UserService } from './user.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   // @Inject 手动注入--指定token字符串
   constructor(
-    @Inject("user") private readonly userService: UserService,
-    @Inject("userInfo")
-    private readonly userInfo: { name: string; age: number }
+    @Inject('user') private readonly userService: UserService,
+    @Inject('userInfo')
+    private readonly userInfo: { name: string, age: number }
   ) {}
 
-  @Get("list")
+  @Get('list')
   async getUser() {
-    console.log("userInfo", this.userInfo);
-    return await this.userService.getUser();
+    console.log('userInfo', this.userInfo)
+    return await this.userService.getUser()
   }
 }
 ```
@@ -200,12 +200,12 @@ export class UserController {
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useFactory: () => {
         return {
-          name: "张三",
+          name: '张三',
           age: 18,
-        };
+        }
       },
     },
   ],
@@ -216,34 +216,34 @@ export class UserModule {}
 **支持异步**
 
 ```ts
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useClass: UserService,
     },
     // 值注入
     {
-      provide: "userInfo",
+      provide: 'userInfo',
       useValue: {
-        name: "张三",
+        name: '张三',
         age: 18,
       },
     },
     {
-      provide: "userInfo2",
+      provide: 'userInfo2',
       useFactory: async () => {
         // 延迟 3 秒执行，启动时延迟，接口调用时无感
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 3000))
         return {
-          name: "李四",
+          name: '李四',
           age: 20,
-        };
+        }
       },
     },
   ],
@@ -254,50 +254,50 @@ export class UserModule {}
 **支持参数注入**
 
 ```ts
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useClass: UserService,
     },
     // 值注入
     {
-      provide: "userInfo",
+      provide: 'userInfo',
       useValue: {
-        name: "张三",
+        name: '张三',
         age: 18,
       },
     },
     {
-      provide: "userInfo2",
+      provide: 'userInfo2',
       useFactory: async () => {
         // 延迟 3 秒执行
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 3000))
         return {
-          name: "李四",
+          name: '李四',
           age: 20,
-        };
+        }
       },
     },
     {
-      provide: "userInfo3",
+      provide: 'userInfo3',
       useFactory: async (
         // 这里的参数就是inject注入的
         user: UserService,
-        userInfo2: { name: string; age: number }
+        userInfo2: { name: string, age: number }
       ) => {
-        const userInfo2List = await user.getUser();
+        const userInfo2List = await user.getUser()
         return {
           name_1: userInfo2List[0].name,
           name_2: userInfo2.name,
-        };
+        }
       },
-      inject: ["user", "userInfo2"], // 也支持token可以是字符串，也可以是class
+      inject: ['user', 'userInfo2'], // 也支持token可以是字符串，也可以是class
     },
   ],
 })
@@ -315,20 +315,20 @@ export class UserModule {}
 在注入时，我们通常使用的是提供者的名称，但是有时候我们可能希望使用一个别名来引用它。
 
 ```ts
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   controllers: [UserController],
   providers: [
     {
-      provide: "user",
+      provide: 'user',
       useClass: UserService,
     },
     {
-      provide: "userInfo4",
-      useExisting: "user", // 要要注入的提供者
+      provide: 'userInfo4',
+      useExisting: 'user', // 要要注入的提供者
     },
   ],
 })

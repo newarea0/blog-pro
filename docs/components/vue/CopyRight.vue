@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useData } from "vitepress";
-import { ref } from "vue";
+import { useData } from 'vitepress'
+import { ref } from 'vue'
 
-const defaultAuthor = "DapanDocs";
-const { frontmatter } = useData();
-const author = ref(defaultAuthor);
+const defaultAuthor = 'DapanDocs'
+const { frontmatter } = useData()
+const author = ref(defaultAuthor)
 
-if (frontmatter.value?.author) author.value = frontmatter.value?.author;
+if (frontmatter.value?.author)
+  author.value = frontmatter.value?.author
 
-const pageHref = location.href;
+const pageHref = location.href
 
 function getName(name: string) {
-  return name === defaultAuthor ? "dapan" : name;
+  return name === defaultAuthor ? 'dapan' : name
 }
 
 // function getGithubLink(name: string) {

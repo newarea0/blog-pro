@@ -7,18 +7,18 @@
 如果使用vite,可以配置 jsxRuntime
 
 ```js
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: "classic", // React.createElement
+      jsxRuntime: 'classic', // React.createElement
       // jsxRuntime: 'automatic', // jsx()
     }),
   ],
-});
+})
 ```
 
 - 无子元素
@@ -91,15 +91,15 @@ _jsxs(
   React 17 版本之前的代码中，子元素是作为 createElement 函数的后续参数传递的。例如：
 
 ```js
-React.createElement("div", null, child1, child2, child3);
+React.createElement('div', null, child1, child2, child3)
 ```
 
 React 17 版本之后的代码中，多个子元素是作为数组传递给\_jsxs 函数的 children 属性。例如：
 
 ```js
-_jsxs("div", {
+_jsxs('div', {
   children: [child1, child2, child3],
-});
+})
 ```
 
 这种改变使得代码更加简洁、可读性更高，并且提供了更好的性能优化和更方便的子元素处理方式。
@@ -116,58 +116,59 @@ React.createElement() 主要用于创建 React 元素，包括处理元素的类
 
 ```js [React.createElement]
 export function createElement(type, config, children) {
-  let propName;
+  let propName
 
   // 提取保留名称
-  const props = {};
+  const props = {}
 
-  let key = null;
-  let ref = null;
-  let self = null;
-  let source = null;
+  let key = null
+  let ref = null
+  let self = null
+  let source = null
 
   // 如果config不为空
   if (config != null) {
     // 如果config有有效的ref
     if (hasValidRef(config)) {
-      ref = config.ref;
+      ref = config.ref
     }
     // 如果config有有效的key
     if (hasValidKey(config)) {
-      key = "" + config.key;
+      key = `${config.key}`
     }
 
-    self = config.__self === undefined ? null : config.__self;
-    source = config.__source === undefined ? null : config.__source;
+    self = config.__self === undefined ? null : config.__self
+    source = config.__source === undefined ? null : config.__source
     // 剩余的属性被添加到新的props对象
     for (propName in config) {
       if (
-        hasOwnProperty.call(config, propName) &&
-        !RESERVED_PROPS.hasOwnProperty(propName)
+        hasOwnProperty.call(config, propName)
+        && !RESERVED_PROPS.hasOwnProperty(propName)
       ) {
-        props[propName] = config[propName];
+        props[propName] = config[propName]
       }
     }
   }
 
   // 子元素可以有多个参数，这些参数被转移到新分配的props对象
-  const childrenLength = arguments.length - 2;
+  const childrenLength = arguments.length - 2
   if (childrenLength === 1) {
-    props.children = children;
-  } else if (childrenLength > 1) {
-    const childArray = Array(childrenLength);
+    props.children = children
+  }
+  else if (childrenLength > 1) {
+    const childArray = Array(childrenLength)
     for (let i = 0; i < childrenLength; i++) {
-      childArray[i] = arguments[i + 2];
+      childArray[i] = arguments[i + 2]
     }
-    props.children = childArray;
+    props.children = childArray
   }
 
   // 解析默认的props
   if (type && type.defaultProps) {
-    const defaultProps = type.defaultProps;
+    const defaultProps = type.defaultProps
     for (propName in defaultProps) {
       if (props[propName] === undefined) {
-        props[propName] = defaultProps[propName];
+        props[propName] = defaultProps[propName]
       }
     }
   }
@@ -180,7 +181,7 @@ export function createElement(type, config, children) {
     source,
     ReactCurrentOwner.current,
     props
-  );
+  )
 }
 ```
 
@@ -191,16 +192,16 @@ function ReactElement(type, key, ref, self, source, owner, props) {
     $$typeof: REACT_ELEMENT_TYPE,
 
     // 内置属性属于元素本身
-    type: type,
-    key: key,
-    ref: ref,
-    props: props,
+    type,
+    key,
+    ref,
+    props,
 
     // 记录创建该元素的组件
     _owner: owner,
-  };
+  }
 
-  return element;
+  return element
 }
 ```
 
@@ -214,45 +215,45 @@ jsx() 函数用于创建 React 元素，包括处理元素的类型、配置、�
 
 ```js [jsx]
 export function jsx(type, config, maybeKey) {
-  let propName;
+  let propName
 
   // 保留属性名将被提取
-  const props = {};
+  const props = {}
 
-  let key = null;
-  let ref = null;
+  let key = null
+  let ref = null
 
   // 目前，key可以作为属性传入。这可能会导致潜在问题，如果key也被显式声明（例如：<div {...props} key="Hi" />或<div key="Hi" {...props} />）。
   // 我们希望废弃key的传播，但作为中间步骤，除了<div {...props} key="Hi" />之外，我们将在其他情况下使用jsxDEV，
   // 因为我们目前无法确定key是否被显式声明为undefined。
   if (maybeKey !== undefined) {
-    key = '' + maybeKey;
+    key = `${maybeKey}`
   }
 
   if (hasValidKey(config)) {
-    key = '' + config.key;
+    key = `${config.key}`
   }
 
   if (hasValidRef(config)) {
-    ref = config.ref;
+    ref = config.ref
   }
 
   // 剩余的属性将被添加到新的props对象中
   for (propName in config) {
     if (
-      hasOwnProperty.call(config, propName) &&
-      !RESERVED_PROPS.hasOwnProperty(propName)
+      hasOwnProperty.call(config, propName)
+      && !RESERVED_PROPS.hasOwnProperty(propName)
     ) {
-      props[propName] = config[propName];
+      props[propName] = config[propName]
     }
   }
 
   // 解析默认props
   if (type && type.defaultProps) {
-    const defaultProps = type.defaultProps;
+    const defaultProps = type.defaultProps
     for (propName in defaultProps) {
       if (props[propName] === undefined) {
-        props[propName] = defaultProps[propName];
+        props[propName] = defaultProps[propName]
       }
     }
   }
@@ -265,9 +266,8 @@ export function jsx(type, config, maybeKey) {
     undefined,
     ReactCurrentOwner.current,
     props,
-  );
+  )
 }
-
 ```
 
 ```js [ReactElement]
@@ -277,16 +277,16 @@ function ReactElement(type, key, ref, self, source, owner, props) {
     $$typeof: REACT_ELEMENT_TYPE,
 
     // 内置属性属于元素本身
-    type: type,
-    key: key,
-    ref: ref,
-    props: props,
+    type,
+    key,
+    ref,
+    props,
 
     // 记录创建该元素的组件
     _owner: owner,
-  };
+  }
 
-  return element;
+  return element
 }
 ```
 :::
@@ -297,19 +297,19 @@ function ReactElement(type, key, ref, self, source, owner, props) {
 
 ```js
 // ReactJSX 源码
-import {REACT_FRAGMENT_TYPE} from 'shared/ReactSymbols';
+import { REACT_FRAGMENT_TYPE } from 'shared/ReactSymbols'
 import {
-  jsxWithValidationStatic,
-  jsxWithValidationDynamic,
   jsxWithValidation,
-} from './ReactJSXElementValidator';
-import {jsx as jsxProd} from './ReactJSXElement';
-const jsx      = __DEV__ ? jsxWithValidationDynamic : jsxProd;
+  jsxWithValidationDynamic,
+  jsxWithValidationStatic,
+} from './ReactJSXElementValidator'
+import { jsx as jsxProd } from './ReactJSXElement'
+const jsx = __DEV__ ? jsxWithValidationDynamic : jsxProd
 // we may want to special case jsxs internally to take advantage of static children.
 // for now we can ship identical prod functions
-const jsxs      = __DEV__ ? jsxWithValidationStatic : jsxProd;
-const jsxDEV      = __DEV__ ? jsxWithValidation : undefined;
+const jsxs = __DEV__ ? jsxWithValidationStatic : jsxProd
+const jsxDEV = __DEV__ ? jsxWithValidation : undefined
 
-export {REACT_FRAGMENT_TYPE as Fragment, jsx, jsxs, jsxDEV};
+export { REACT_FRAGMENT_TYPE as Fragment, jsx, jsxs, jsxDEV }
 ```
 从源码分析得出，jsx 和 jsxs 函数都是调用了 ReactJSXElement 中的 jsx 函数。

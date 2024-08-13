@@ -1,24 +1,27 @@
-import { useState } from "react";
-import { Card, Button, Space } from "antd";
+import { useState } from 'react'
+import { Button, Card, Space } from 'antd'
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+function Counter() {
+  const [count, setCount] = useState(0)
 
   // 方法一
   function handleClick() {
-    setCount(count + 1);
+    setCount(count + 1)
   }
 
   // 方法二
   function handleClickFn() {
     setCount((prevCount) => {
-      return prevCount + 1;
-    });
+      return prevCount + 1
+    })
   }
   return (
     <Card>
       <Space>
-        <div>Count: {count}</div>
+        <div>
+          Count:
+          {count}
+        </div>
         <Button onClick={handleClick} type="primary">
           count+1[方法一]
         </Button>
@@ -30,7 +33,7 @@ const Counter = () => {
         </Button>
       </Space>
     </Card>
-  );
-};
+  )
+}
 
-export default Counter;
+export default Counter

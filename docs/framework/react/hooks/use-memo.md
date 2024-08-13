@@ -9,7 +9,7 @@ useMemo 是 React 的一个 Hook，它用于优化性能，特别是在组件重
 useMemo 接受两个参数：一个函数和一个依赖数组。函数返回我们想要“记住”的值，而依赖数组告诉 React 什么时候重新计算这个值。
 
 ```js
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
 ```
 
 ::: warning 注意

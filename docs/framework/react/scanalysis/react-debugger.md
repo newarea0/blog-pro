@@ -23,12 +23,12 @@ git clone https://github.com/facebook/react.git
 
 ```js
 // 需要移动的包
-react;
-react - dom;
-react - dom - bindings;
-react - reconciler;
-scheduler;
-shared;
+react
+react - dom
+react - dom - bindings
+react - reconciler
+scheduler
+shared
 ```
 
 ### 4. 配置 vite.config.js
@@ -36,9 +36,9 @@ shared;
 增加别名和环境变量，如下：
 
 ```js
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import path from 'node:path'
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,16 +46,16 @@ export default defineConfig({
   resolve: {
     // 配置别名
     alias: {
-      react: path.posix.resolve("src/react/packages/react"),
-      "react-dom": path.posix.resolve("src/react/packages/react-dom"),
-      "react-dom-bindings": path.posix.resolve(
-        "src/react/packages/react-dom-bindings"
+      'react': path.posix.resolve('src/react/packages/react'),
+      'react-dom': path.posix.resolve('src/react/packages/react-dom'),
+      'react-dom-bindings': path.posix.resolve(
+        'src/react/packages/react-dom-bindings'
       ),
-      "react-reconciler": path.posix.resolve(
-        "src/react/packages/react-reconciler"
+      'react-reconciler': path.posix.resolve(
+        'src/react/packages/react-reconciler'
       ),
-      scheduler: path.posix.resolve("src/react/packages/scheduler"),
-      shared: path.posix.resolve("src/react/packages/shared"),
+      'scheduler': path.posix.resolve('src/react/packages/scheduler'),
+      'shared': path.posix.resolve('src/react/packages/shared'),
     },
   },
   // 配置环境变量，解决__DEV__ is not defined
@@ -64,7 +64,7 @@ export default defineConfig({
     __EXPERIMENTAL__: true,
     __PROFILE__: true,
   },
-});
+})
 ```
 
 如果要设置`__DEV__`为 false，需要调整以下代码：
@@ -73,22 +73,22 @@ export default defineConfig({
 // src/react/packages/react/src/jsx/ReactJSX.js
 // 修改后
 
-import { REACT_FRAGMENT_TYPE } from "shared/ReactSymbols";
+import { REACT_FRAGMENT_TYPE } from 'shared/ReactSymbols'
 import {
-  jsxWithValidationStatic,
-  jsxWithValidationDynamic,
   jsxWithValidation,
-} from "./ReactJSXElementValidator";
-import { jsx as jsxProd } from "./ReactJSXElement";
-const jsx = __DEV__ ? jsxWithValidationDynamic : jsxProd;
+  jsxWithValidationDynamic,
+  jsxWithValidationStatic,
+} from './ReactJSXElementValidator'
+import { jsx as jsxProd } from './ReactJSXElement'
+const jsx = __DEV__ ? jsxWithValidationDynamic : jsxProd
 // we may want to special case jsxs internally to take advantage of static children.
 // for now we can ship identical prod functions
-const jsxs = __DEV__ ? jsxWithValidationStatic : jsxProd;
+const jsxs = __DEV__ ? jsxWithValidationStatic : jsxProd
 // const jsxDEV      = __DEV__ ? jsxWithValidation : undefined; // 隐藏
 
-const jsxDEV = jsxProd; // 增加
+const jsxDEV = jsxProd // 增加
 
-export { REACT_FRAGMENT_TYPE as Fragment, jsx, jsxs, jsxDEV };
+export { REACT_FRAGMENT_TYPE as Fragment, jsx, jsxs, jsxDEV }
 ```
 
 如果需要配置未生效时，可以尝试删除node_modules/.vite文件夹，重新启动项目
@@ -180,18 +180,18 @@ npx flow-remove-types --out-dir src/react src/react
 查看 client 文件是 export 到处的，所以需要修改引入方式
 
 ```js
-import * as React from "react";
+import * as React from 'react'
 // import React from "react";
-import * as ReactDOM from "react-dom/client";
+import * as ReactDOM from 'react-dom/client'
 // import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
+import App from './App.tsx'
+import './index.css'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-);
+)
 ```
 
 ### 3. The requested module '/src/react/packages/react-reconciler/src/ReactFiberConfig.js' does not provide an export named 'getChildHostContext'
@@ -225,7 +225,7 @@ src/react/packages/react-reconciler/src/ReactFiberConfig.js 更改后如下：
 // throw new Error('This module must be shimmed by a specific renderer.');
 
 // 引入文件
-export * from "./forks/ReactFiberConfig.dom-browser";
+export * from './forks/ReactFiberConfig.dom-browser'
 
 // 其实就是
 // export * from 'react-dom-bindings/src/client/ReactDOMHostConfig';

@@ -461,7 +461,6 @@ pnpm rm <package-name> -g
 
 pnpm un <package-name> -g
 
-
 ```
 
 :::

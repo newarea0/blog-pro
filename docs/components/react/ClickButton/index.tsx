@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 function ClickButton() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   return (
     <div
@@ -14,13 +14,13 @@ function ClickButton() {
       border="rounded-6"
       cursor="pointer"
       onClick={() => {
-        setCount(count + 1);
+        setCount(count + 1)
       }}
     >
       <span>React Click Button</span>
       <div color="amber">{count}</div>
     </div>
-  );
+  )
 }
 
-export default ClickButton;
+export default ClickButton

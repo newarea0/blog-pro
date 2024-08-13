@@ -8,16 +8,16 @@
 
 ```js
 function mergeString(a, b) {
-  console.log("a", a);
-  console.log("b", b);
-  return `${a} ${b}`;
+  console.log('a', a)
+  console.log('b', b)
+  return `${a} ${b}`
 }
 
-console.log(mergeString("Hello", "World"));
+console.log(mergeString('Hello', 'World'))
 
-console.log(mergeString("你好", "世界"));
+console.log(mergeString('你好', '世界'))
 
-console.log(mergeString("大", "前端"));
+console.log(mergeString('大', '前端'))
 ```
 
 ## 功能解释
@@ -85,6 +85,3 @@ step in（单步调试）键会执行灰色的断点（代码里的圆型灰点�
 ### stop（停止）
 
 作用是停止调试。
-
-
-

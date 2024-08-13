@@ -43,17 +43,17 @@
 在这种情况下，我们可以使用 React.memo 的第二个参数来提供一个自定义的比较函数：
 
 ```jsx
-const areEqual = (prevProps, nextProps) => {
+function areEqual(prevProps, nextProps) {
   // 检查user对象中的id和name字段是否相同
   return (
-    prevProps.user.id === nextProps.user.id &&
-    prevProps.user.name === nextProps.user.name
-  );
-};
+    prevProps.user.id === nextProps.user.id
+    && prevProps.user.name === nextProps.user.name
+  )
+}
 
 const User = React.memo(({ user, onUpdate }) => {
   // 组件逻辑
-}, areEqual);
+}, areEqual)
 ```
 
 在上述例子中，即使 onUpdate 函数的引用或 user 对象中的其他字段发生变化，只要 id 和 name 字段保持不变，User 组件就不会重新渲染。

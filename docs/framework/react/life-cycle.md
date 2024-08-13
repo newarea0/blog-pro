@@ -27,7 +27,7 @@
 构造函数是为`this.state`设置初始值的地方。这是通过直接为`this.state`分配一个对象来完成的。例如：
 
 ```javascript
-this.state = { counter: 0 };
+this.state = { counter: 0 }
 ```
 
 请注意，您不应该在构造函数中调用`setState()`。
@@ -37,7 +37,7 @@ this.state = { counter: 0 };
 为了确保事件处理函数中的`this`引用的是组件实例，您需要在构造函数中绑定它。例如：
 
 ```javascript
-this.handleClick = this.handleClick.bind(this);
+this.handleClick = this.handleClick.bind(this)
 ```
 
 #### 6. 避免的做法
@@ -51,9 +51,9 @@ this.handleClick = this.handleClick.bind(this);
 ```javascript
 class MyComponent extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { counter: 0 };
-    this.handleClick = this.handleClick.bind(this);
+    super(props)
+    this.state = { counter: 0 }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick() {
@@ -78,7 +78,7 @@ class MyComponent extends React.Component {
 
 ```javascript
 class MyComponent extends React.Component {
-  state = { counter: 0 };
+  state = { counter: 0 }
   // ...其他代码
 }
 ```
@@ -91,7 +91,7 @@ class MyComponent extends React.Component {
 class MyComponent extends React.Component {
   handleClick = () => {
     // 事件处理逻辑
-  };
+  }
   // ...其他代码
 }
 ```
@@ -139,17 +139,17 @@ class MyComponent extends React.Component {
 
 ```jsx
 class ThemeComponent extends React.Component {
-  state = { color: this.props.color };
+  state = { color: this.props.color }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.color !== prevState.color) {
-      return { color: nextProps.color };
+      return { color: nextProps.color }
     }
-    return null;
+    return null
   }
 
   render() {
-    return <div style={{ backgroundColor: this.state.color }}>主题颜色</div>;
+    return <div style={{ backgroundColor: this.state.color }}>主题颜色</div>
   }
 }
 ```
@@ -159,17 +159,17 @@ class ThemeComponent extends React.Component {
 
 ```jsx
 class PermissionComponent extends React.Component {
-  state = { isAdmin: this.props.isAdmin };
+  state = { isAdmin: this.props.isAdmin }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.isAdmin !== prevState.isAdmin) {
-      return { isAdmin: nextProps.isAdmin };
+      return { isAdmin: nextProps.isAdmin }
     }
-    return null;
+    return null
   }
 
   render() {
-    return this.state.isAdmin ? <AdminFeatures /> : <UserFeatures />;
+    return this.state.isAdmin ? <AdminFeatures /> : <UserFeatures />
   }
 }
 ```
@@ -254,7 +254,7 @@ shouldComponentUpdate(nextProps, nextState) {
 ### 2. 方法签名
 
 ```javascript
-getSnapshotBeforeUpdate(prevProps, prevState);
+getSnapshotBeforeUpdate(prevProps, prevState)
 ```
 
 - `prevProps`: 更新前的属性。

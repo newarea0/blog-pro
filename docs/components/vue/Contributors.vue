@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useData } from "vitepress";
+import { ref } from 'vue'
+import { useData } from 'vitepress'
 
-const defaultAuthor = "DapanDocs";
-const { frontmatter } = useData();
+const defaultAuthor = 'DapanDocs'
+const { frontmatter } = useData()
 
 const contributorsArr = [
   frontmatter.value?.author,
   ...(frontmatter.value.contributors || []),
-].filter((i) => i);
-const contributors = ref(contributorsArr);
+].filter(i => i)
+const contributors = ref(contributorsArr)
 
 function getName(name: string) {
-  return name === defaultAuthor ? "dapan" : name;
+  return name === defaultAuthor ? 'dapan' : name
 }
 
 function getAvatarUrl(name: string) {
-  return `https://proxy.skillgroup.cn/proxy/github.com/${name}.png`;
+  return `https://proxy.skillgroup.cn/proxy/github.com/${name}.png`
 }
 
 function getGithubLink(name: string) {
-  return `https://github.com/${name}`;
+  return `https://github.com/${name}`
 }
 
 function isNotEmpty(arr: string | string[]) {
-  return Array.isArray(arr) && arr.length;
+  return Array.isArray(arr) && arr.length
 }
 </script>
 
@@ -43,7 +43,7 @@ function isNotEmpty(arr: string | string[]) {
           h="42"
           border="rounded-full"
           :src="getAvatarUrl(contributor)"
-        />
+        >
       </a>
       <span>{{ getName(contributor) }}</span>
     </div>
@@ -55,7 +55,7 @@ function isNotEmpty(arr: string | string[]) {
         h="42"
         border="rounded-full"
         :src="getAvatarUrl(defaultAuthor)"
-      />
+      >
     </a>
     <span>dapan</span>
   </div>

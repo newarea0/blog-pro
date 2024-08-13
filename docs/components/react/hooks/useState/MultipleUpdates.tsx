@@ -1,26 +1,29 @@
-import { useState } from "react";
-import { Card, Button, Space } from "antd";
+import { useState } from 'react'
+import { Button, Card, Space } from 'antd'
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+function Counter() {
+  const [count, setCount] = useState(0)
 
   // 方法一
   function handleMultipleUpdates() {
-    setCount(count + 1);
-    setCount(count + 1);
-    setCount(count + 1);
+    setCount(count + 1)
+    setCount(count + 1)
+    setCount(count + 1)
   }
 
   // 方法二
   function handleMultipleUpdatesFn() {
-    setCount((prevCount) => prevCount + 1);
-    setCount((prevCount) => prevCount + 1);
-    setCount((prevCount) => prevCount + 1);
+    setCount(prevCount => prevCount + 1)
+    setCount(prevCount => prevCount + 1)
+    setCount(prevCount => prevCount + 1)
   }
   return (
     <Card>
       <Space>
-        <div>Count: {count}</div>
+        <div>
+          Count:
+          {count}
+        </div>
         <Button onClick={handleMultipleUpdates} type="primary">
           批量更新[方法一]
         </Button>
@@ -32,7 +35,7 @@ const Counter = () => {
         </Button>
       </Space>
     </Card>
-  );
-};
+  )
+}
 
-export default Counter;
+export default Counter

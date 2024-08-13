@@ -22,7 +22,7 @@ import(modulePath)
   })
   .catch((error) => {
     // 处理错误
-  });
+  })
 ```
 
 在这个语法中，modulePath 是一个字符串，用于指定要加载的模块路径。它可以是相对路径或绝对路径，也可以是一个包名。
@@ -37,7 +37,7 @@ import()只能在模块的顶层作用域中使用，不能在函数内部或条
 动态模块路径：
 
 ```js
-const modulePath = "./myModule";
+const modulePath = './myModule'
 
 import(modulePath)
   .then((module) => {
@@ -45,7 +45,7 @@ import(modulePath)
   })
   .catch((error) => {
     // 处理错误
-  });
+  })
 ```
 
 在这个示例中，modulePath 是一个变量，它的值在运行时确定。这样可以根据需要动态加载不同的模块。
@@ -53,15 +53,15 @@ import(modulePath)
 对象解构：
 
 ```js
-import("./myModule")
+import('./myModule')
   .then(({ myFunction, myVariable }) => {
     // 使用导入的函数和变量
-    myFunction();
-    console.log(myVariable);
+    myFunction()
+    console.log(myVariable)
   })
   .catch((error) => {
     // 处理错误
-  });
+  })
 ```
 
 ### 2. React.lazy
@@ -70,7 +70,7 @@ React.lazy 是 React 16.6 版本引入的一个特性，它可以让你以动态
 React.lazy 的用法如下：
 
 ```js
-const MyComponent = React.lazy(() => import("./MyComponent"));
+const MyComponent = React.lazy(() => import('./MyComponent'))
 ```
 
 在这个例子中，MyComponent 是一个需要延迟加载的组件。import('./MyComponent')返回一个 Promise，该 Promise 在模块加载完成后会被解析为一个包含 MyComponent 的模块对象。React.lazy 接受一个函数作为参数，该函数返回一个动态导入的 Promise。当组件需要被渲染时，React.lazy 会自动加载该组件。
@@ -78,9 +78,9 @@ const MyComponent = React.lazy(() => import("./MyComponent"));
 下面是一个使用 React.lazy 和 Suspense 的示例：
 
 ```js
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react'
 
-const MyComponent = React.lazy(() => import("./MyComponent"));
+const MyComponent = React.lazy(() => import('./MyComponent'))
 
 function App() {
   return (
@@ -89,10 +89,10 @@ function App() {
         <MyComponent />
       </Suspense>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 ```
 
 在这个示例中，MyComponent 是一个需要延迟加载的组件。当 MyComponent 被渲染时，Suspense 组件会显示一个加载中的 UI（在这个例子中是一个简单的文本"Loading..."）。一旦 MyComponent 加载完成，它将被渲染到页面上。
@@ -104,8 +104,8 @@ React.lazy 只能用于默认导出的组件。如果你的组件使用了命名
 
 ```js
 const { MyComponent, AnotherComponent } = React.lazy(() =>
-  import("./MyComponent")
-);
+  import('./MyComponent')
+)
 ```
 
 这样，你就可以按需加载具有命名导出的组件。
@@ -117,12 +117,12 @@ React.lazy 和 Suspense 可以帮助你在组件级别上进行代码分割，�
 下面是一个结合 React.lazy 和 React Router 的示例：
 
 ```js
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Suspense, lazy } from 'react'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 
-const Home = lazy(() => import("./Home"));
-const About = lazy(() => import("./About"));
-const Contact = lazy(() => import("./Contact"));
+const Home = lazy(() => import('./Home'))
+const About = lazy(() => import('./About'))
+const Contact = lazy(() => import('./Contact'))
 
 function App() {
   return (
@@ -150,10 +150,9 @@ function App() {
         </Suspense>
       </div>
     </Router>
-  );
+  )
 }
-export default App;
-
+export default App
 ```
 
 在上面的例子中，我们将Home、About和Contact三个组件使用React.lazy进行了按需加载，然后通过React Router的Route组件将它们与特定的路由路径绑定起来。

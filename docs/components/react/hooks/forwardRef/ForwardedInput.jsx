@@ -1,20 +1,19 @@
-import React, { useRef, useImperativeHandle, forwardRef } from "react";
-import { Card, Button, Input } from "antd";
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 
 const ForwardedInput = forwardRef((props, ref) => {
-  const inputRef = useRef();
+  const inputRef = useRef()
 
   useImperativeHandle(ref, () => ({
     focus: () => {
-      inputRef.current.focus();
+      inputRef.current.focus()
     },
-  }));
+  }))
 
-  return <Input ref={inputRef} {...props} />;
-});
+  return <Input ref={inputRef} {...props} />
+})
 
 function App() {
-  const inputRef = useRef();
+  const inputRef = useRef()
 
   return (
     <Card title="案例 demo">
@@ -27,7 +26,7 @@ function App() {
         Focus Input
       </Button>
     </Card>
-  );
+  )
 }
 
-export default App;
+export default App

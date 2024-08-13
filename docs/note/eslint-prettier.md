@@ -47,8 +47,8 @@ pnpm i -D prettier
 ### 3、根目录下创建 index.js
 
 ```js
-var a = "1"
-    const b = '2';
+const a = '1'
+const b = '2'
 console.log(a, b)
 ```
 
@@ -99,7 +99,7 @@ module.exports = {
     es2021: true, // 这允许使用 ES2021 版本的 ECMAScript 功能
   },
   // `extends` 用于继承一组预定义的规则集
-  extends: "eslint:recommended", // 这表示使用 ESLint 推荐的规则集
+  extends: 'eslint:recommended', // 这表示使用 ESLint 推荐的规则集
 
   // `overrides` 允许你为特定文件或文件模式定义特殊的配置
   overrides: [
@@ -107,23 +107,23 @@ module.exports = {
       env: {
         node: true, // 这表示这些文件将在 Node.js 环境中运行
       },
-      files: [".eslintrc.{js,cjs}"], // 这定义了这个特殊配置适用的文件模式
+      files: ['.eslintrc.{js,cjs}'], // 这定义了这个特殊配置适用的文件模式
       parserOptions: {
-        sourceType: "script", // 这表示这些文件应被视为脚本而不是 ES6 模块
+        sourceType: 'script', // 这表示这些文件应被视为脚本而不是 ES6 模块
       },
     },
   ],
 
   // `parserOptions` 用于设置解析器选项，告诉 ESLint 如何解析代码
   parserOptions: {
-    ecmaVersion: "latest", // 这允许使用最新的 ECMAScript 版本
-    sourceType: "module", // 这表示你的代码使用了 ES6 模块
+    ecmaVersion: 'latest', // 这允许使用最新的 ECMAScript 版本
+    sourceType: 'module', // 这表示你的代码使用了 ES6 模块
   },
 
   // `rules` 定义了项目特定的规则，你可以在这里启用、禁用或配置 ESLint 规则
   rules: {},
   // 这里为空，表示没有自定义规则
-};
+}
 ```
 
 执行 `npx eslint index.js` 命令，如果发现有报错，增加 root: true，如下：
@@ -238,7 +238,7 @@ module.exports = {
   // 控制字符串是否使用单引号。
   // true 代表：使用单引号而不是双引号。
   singleQuote: true,
-};
+}
 ```
 
 执行 `npx prettier --write index.js` 命令，可以看到代码已经格式化了。
@@ -267,40 +267,40 @@ module.exports = {
   extends: [
     // 使用 ESLint 推荐的规则集
     // npm 包: eslint
-    "eslint:recommended",
+    'eslint:recommended',
 
     // 使用 @typescript-eslint 插件推荐的规则集，适用于 TypeScript 代码
     // npm 包: @typescript-eslint/eslint-plugin
-    "plugin:@typescript-eslint/recommended",
+    'plugin:@typescript-eslint/recommended',
 
     // 使用 react-hooks 插件推荐的规则集，适用于 React Hooks
     // npm 包: eslint-plugin-react-hooks
-    "plugin:react-hooks/recommended",
+    'plugin:react-hooks/recommended',
   ],
 
   // 指定 ESLint 忽略的文件或目录模式
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
 
   // 指定解析器，这里使用 @typescript-eslint/parser 来解析 TypeScript 代码
   // npm 包: @typescript-eslint/parser
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
 
   // 列出项目中要使用的 ESLint 插件
   plugins: [
     // 使用 react-refresh 插件提供的规则
     // npm 包: eslint-plugin-react-refresh
-    "react-refresh",
+    'react-refresh',
   ],
 
   // 定义或覆盖规则的行为
   rules: {
     // 使用 react-refresh 插件的 only-export-components 规则，并设置为警告级别
-    "react-refresh/only-export-components": [
-      "warn",
+    'react-refresh/only-export-components': [
+      'warn',
       { allowConstantExport: true },
     ],
   },
-};
+}
 ```
 
 两个关键字段：`plugins` 和 `extends`。它们的区别和用途：

@@ -8,11 +8,11 @@
 
 ```javascript
 useEffect(() => {
-  console.log("Component did mount/update");
+  console.log('Component did mount/update')
   return () => {
-    console.log("Component will unmount");
-  };
-}, []);
+    console.log('Component will unmount')
+  }
+}, [])
 ```
 
 ### 无依赖
@@ -21,8 +21,8 @@ useEffect(() => {
 
 ```javascript
 useEffect(() => {
-  console.log("This runs after every render");
-});
+  console.log('This runs after every render')
+})
 ```
 
 ### 有依赖
@@ -30,11 +30,11 @@ useEffect(() => {
 当提供一个依赖数组时，只有当数组中的值发生变化时，`useEffect` 才会执行：
 
 ```javascript
-const [count, setCount] = useState(0);
+const [count, setCount] = useState(0)
 
 useEffect(() => {
-  console.log("Count has changed:", count);
-}, [count]);
+  console.log('Count has changed:', count)
+}, [count])
 ```
 
 ### 有多个依赖
@@ -42,12 +42,12 @@ useEffect(() => {
 当提供一个依赖数组时，只有当数组中的值发生变化时，`useEffect` 才会执行：
 
 ```javascript
-const [count, setCount] = useState(0);
-const [value, setValue] = useState(0);
+const [count, setCount] = useState(0)
+const [value, setValue] = useState(0)
 
 useEffect(() => {
-  console.log("Count or Value has changed:", count, value);
-}, [count, value]);
+  console.log('Count or Value has changed:', count, value)
+}, [count, value])
 ```
 
 ### 清除副作用
@@ -57,12 +57,12 @@ useEffect(() => {
 ```javascript
 useEffect(() => {
   const timer = setTimeout(() => {
-    console.log("This will run after 1 second");
-  }, 1000);
+    console.log('This will run after 1 second')
+  }, 1000)
   return () => {
-    clearTimeout(timer);
-  };
-}, []);
+    clearTimeout(timer)
+  }
+}, [])
 ```
 
 ### 使用多个 `useEffect`
@@ -71,12 +71,12 @@ useEffect(() => {
 
 ```javascript
 useEffect(() => {
-  console.log("This runs after every render");
-});
+  console.log('This runs after every render')
+})
 
 useEffect(() => {
-  console.log("This runs only once, similar to componentDidMount");
-}, []);
+  console.log('This runs only once, similar to componentDidMount')
+}, [])
 ```
 
 ### 注意事项
@@ -101,12 +101,12 @@ useEffect 的返回函数被称为“清除函数”（cleanup function）。这
 
 ```js
 useEffect(() => {
-  console.log("Effect has been run.");
+  console.log('Effect has been run.')
 
   return () => {
-    console.log("Cleanup on component unmount.");
-  };
-}, []);
+    console.log('Cleanup on component unmount.')
+  }
+}, [])
 
 // 当组件首次挂载时，控制台会输出 "Effect has been run."
 // 当组件被卸载时，控制台会输出 "Cleanup on component unmount."
@@ -117,15 +117,15 @@ useEffect(() => {
 如果 `useEffect` 的依赖项发生变化，清除函数会在下一次 `useEffect` 运行之前被调用。
 
 ```js
-const [count, setCount] = useState(0);
+const [count, setCount] = useState(0)
 
 useEffect(() => {
-  console.log(`Effect for count: ${count}`);
+  console.log(`Effect for count: ${count}`)
 
   return () => {
-    console.log(`Cleanup for count: ${count}`);
-  };
-}, [count]);
+    console.log(`Cleanup for count: ${count}`)
+  }
+}, [count])
 
 // 假设我们调用 setCount(1)：
 // 控制台会首先输出 "Cleanup for count: 0"，然后输出 "Effect for count: 1"

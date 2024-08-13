@@ -11,30 +11,30 @@ React Hooks 为我们提供了一种全新的方式来处理组件的状态和�
 当你想从子组件向父组件暴露某些特定的方法时，可以使用 `useImperativeHandle`。
 
 ```jsx
-import React, { useRef, useImperativeHandle, forwardRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
 const Child = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     sayHello() {
-      console.log("Hello from Child!");
+      console.log('Hello from Child!')
     },
-  }));
-  return <div>Child Component</div>;
-});
+  }))
+  return <div>Child Component</div>
+})
 
 function Parent() {
-  const childRef = useRef(null);
+  const childRef = useRef(null)
 
   const handleClick = () => {
-    childRef.current.sayHello();
-  };
+    childRef.current.sayHello()
+  }
 
   return (
     <>
       <Child ref={childRef} />
       <button onClick={handleClick}>Call Child Method</button>
     </>
-  );
+  )
 }
 ```
 
@@ -44,23 +44,28 @@ function Parent() {
 
 ```jsx
 const Child = forwardRef((props, ref) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   useImperativeHandle(ref, () => ({
     increment() {
-      setCount((prevCount) => prevCount + 1);
+      setCount(prevCount => prevCount + 1)
     },
     decrement() {
-      setCount((prevCount) => prevCount - 1);
+      setCount(prevCount => prevCount - 1)
     },
-  }));
+  }))
 
   useEffect(() => {
-    console.log(`Count changed to ${count}`);
-  }, [count]);
+    console.log(`Count changed to ${count}`)
+  }, [count])
 
-  return <div>Count: {count}</div>;
-});
+  return (
+    <div>
+      Count:
+      {count}
+    </div>
+  )
+})
 ```
 
 ### 依赖数组
@@ -69,20 +74,25 @@ const Child = forwardRef((props, ref) => {
 
 ```jsx
 const Child = forwardRef((props, ref) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   useImperativeHandle(
     ref,
     () => ({
       getCurrentCount() {
-        return count;
+        return count
       },
     }),
     [count]
-  );
+  )
 
-  return <div>Count: {count}</div>;
-});
+  return (
+    <div>
+      Count:
+      {count}
+    </div>
+  )
+})
 ```
 
 ### 总结

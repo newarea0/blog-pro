@@ -8,8 +8,8 @@ forwardRef 是一个函数，它接收一个渲染函数作为参数。这个渲
 
 ```js
 React.forwardRef((props, ref) => {
-  return <div ref={ref} />;
-});
+  return <div ref={ref} />
+})
 ```
 
 ## 为什么要使用 forwardRef?

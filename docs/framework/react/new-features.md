@@ -15,8 +15,8 @@ React 18 引入了一个新的渲染 API，名为 `createRoot`。这是与 React
 示例：
 
 ```javascript
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)
 ```
 
 #### 2. ReactDOM.render
@@ -27,7 +27,7 @@ root.render(<App />);
 示例：
 
 ```javascript
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
 React 18 的 `createRoot` API 是为了支持并发模式而引入的，它提供了一种新的、更灵活的方式来渲染组件，而 React 17 和之前的版本使用的是 `ReactDOM.render` 方法。
@@ -56,68 +56,82 @@ React 18 在 `setState` 的自动批处理方面做了增强，使得在更多�
 ##### React 事件处理函数
 
 ```javascript
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 function ReactEventHandlerExample() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const handleClick = () => {
-    setCount((prevCount) => prevCount + 1);
-    setCount((prevCount) => prevCount + 1);
+    setCount(prevCount => prevCount + 1)
+    setCount(prevCount => prevCount + 1)
     // 在React18和之前的版本中，这两次 setCount 调用都会被批处理，只触发一次重新渲染。
-  };
+  }
 
-  return <button onClick={handleClick}>Clicked {count} times</button>;
+  return (
+    <button onClick={handleClick}>
+      Clicked
+      {count}
+      {' '}
+      times
+    </button>
+  )
 }
 ```
 
 ##### `setTimeout` 中的 `setState`
 
 ```javascript
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 function SetTimeoutExample() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const handleTimeout = () => {
     setTimeout(() => {
-      setCount((prevCount) => prevCount + 1);
-      setCount((prevCount) => prevCount + 1);
+      setCount(prevCount => prevCount + 1)
+      setCount(prevCount => prevCount + 1)
       // 在 React 17 和之前的版本中，这两次 setCount 调用不会被批处理，会触发两次重新渲染。
       // 在 React 18 中，这两次 setCount 调用也会被批处理，只触发一次重新渲染。
-    }, 1000);
-  };
+    }, 1000)
+  }
 
-  return <button onClick={handleTimeout}>Increase after 1 second</button>;
+  return <button onClick={handleTimeout}>Increase after 1 second</button>
 }
 ```
 
 ##### 原生 JS 事件
 
 ```javascript
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react'
 
 function NativeEventExample() {
-  const [clicked, setClicked] = useState(false);
-  const [count, setCount] = useState(0);
+  const [clicked, setClicked] = useState(false)
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     const handleDocumentClick = () => {
-      setClicked(true);
-      setCount((prevCount) => prevCount + 1);
+      setClicked(true)
+      setCount(prevCount => prevCount + 1)
       // 在 React 17 和之前的版本中，这两次 setXXX 调用不会被批处理，会触发两次重新渲染。
       // 在 React 18 中，这两次 setXXX 调用也会被批处理，只触发一次重新渲染。
-    };
+    }
 
-    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener('click', handleDocumentClick)
 
     // 清除事件监听器
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, []);
+      document.removeEventListener('click', handleDocumentClick)
+    }
+  }, [])
 
-  return <div>Document was clicked {count} times</div>;
+  return (
+    <div>
+      Document was clicked
+      {count}
+      {' '}
+      times
+    </div>
+  )
 }
 ```
 
@@ -134,22 +148,22 @@ function NativeEventExample() {
 ### 1. 使用 `flushSync` 在函数组件中：
 
 ```javascript
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom'
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const handleImmediateUpdate = () => {
     ReactDOM.flushSync(() => {
-      setCount((prevCount) => prevCount + 1);
-    });
+      setCount(prevCount => prevCount + 1)
+    })
     ReactDOM.flushSync(() => {
-      setCount((prevCount) => prevCount + 1);
-    });
+      setCount(prevCount => prevCount + 1)
+    })
     // 在这里，count 的更新会立即被应用并重新渲染组件。不会批量更新。
-  };
+  }
 
-  return <button onClick={handleImmediateUpdate}>Increment</button>;
+  return <button onClick={handleImmediateUpdate}>Increment</button>
 }
 ```
 
@@ -158,20 +172,20 @@ function App() {
 但是在 `flushSync` 函数内部的多个 setState 仍然为批量更新。
 
 ```javascript
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom'
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const handleImmediateUpdate = () => {
     ReactDOM.flushSync(() => {
       // flushSync 内部仍然批量更新
-      setCount((prevCount) => prevCount + 1);
-      setCount((prevCount) => prevCount + 1);
-    });
-  };
+      setCount(prevCount => prevCount + 1)
+      setCount(prevCount => prevCount + 1)
+    })
+  }
 
-  return <button onClick={handleImmediateUpdate}>Increment</button>;
+  return <button onClick={handleImmediateUpdate}>Increment</button>
 }
 ```
 
@@ -270,32 +284,32 @@ Nothing was returned from render. This usually means a return statement is missi
 
    ```javascript
    function Checkbox() {
-     const id = useId();
+     const id = useId()
      return (
        <>
          <label htmlFor={id}>Do you like React?</label>
          <input id={id} type="checkbox" name="react" />
        </>
-     );
+     )
    }
    ```
 
 2. **在同一个组件中使用多个 ID**：使用相同的 id 附加一个后缀。
    ```javascript
    function NameFields() {
-     const id = useId();
+     const id = useId()
      return (
        <div>
-         <label htmlFor={id + "-firstName"}>First Name</label>
+         <label htmlFor={`${id}-firstName`}>First Name</label>
          <div>
-           <input id={id + "-firstName"} type="text" />
+           <input id={`${id}-firstName`} type="text" />
          </div>
-         <label htmlFor={id + "-lastName"}>Last Name</label>
+         <label htmlFor={`${id}-lastName`}>Last Name</label>
          <div>
-           <input id={id + "-lastName"} type="text" />
+           <input id={`${id}-lastName`} type="text" />
          </div>
        </div>
-     );
+     )
    }
    ```
 
@@ -314,7 +328,7 @@ Nothing was returned from render. This usually means a return statement is missi
 1. **基本使用**：简单地订阅整个存储。
 
    ```javascript
-   const state = useSyncExternalStore(store.subscribe, store.getSnapshot);
+   const state = useSyncExternalStore(store.subscribe, store.getSnapshot)
    ```
 
 2. **订阅特定字段**：您还可以订阅特定的字段。
@@ -323,7 +337,7 @@ Nothing was returned from render. This usually means a return statement is missi
    const selectedField = useSyncExternalStore(
      store.subscribe,
      () => store.getSnapshot().selectedField
-   );
+   )
    ```
 
 3. **服务器渲染时的使用**：在服务器渲染时，您必须序列化在服务器上使用的存储值，并将其提供给 `useSyncExternalStore`。React 将在 hydration 过程中使用此快照以防止服务器不匹配。
@@ -332,7 +346,7 @@ Nothing was returned from render. This usually means a return statement is missi
      store.subscribe,
      () => store.getSnapshot().selectedField,
      () => INITIAL_SERVER_SNAPSHOT.selectedField
-   );
+   )
    ```
 
 需要注意的是：
@@ -346,7 +360,7 @@ useInsertionEffect 主要用途是在使用 useLayoutEffect 读取布局之前�
 假设您正在使用一个 css-in-js 解决方案，并希望在组件渲染之前将某些样式注入到 DOM 中。您可以使用 `useInsertionEffect` 来确保样式在任何其他 DOM 读取或操作之前被注入。
 
 ```javascript
-import { useInsertionEffect } from "react";
+import { useInsertionEffect } from 'react'
 
 function MyComponent() {
   useInsertionEffect(() => {
@@ -355,17 +369,17 @@ function MyComponent() {
       .my-class {
         color: red;
       }
-    `);
-  });
+    `)
+  })
 
-  return <div className="my-class">This text should be red.</div>;
+  return <div className="my-class">This text should be red.</div>
 }
 
 function injectStyles(css) {
-  const style = document.createElement("style");
-  style.type = "text/css";
-  style.appendChild(document.createTextNode(css));
-  document.head.appendChild(style);
+  const style = document.createElement('style')
+  style.type = 'text/css'
+  style.appendChild(document.createTextNode(css))
+  document.head.appendChild(style)
 }
 ```
 
@@ -395,27 +409,27 @@ React 18 中的并发模式，主要包含以下几个特性：
 
 ```javascript
 function App() {
-  const [resource, setResource] = useState(initialResource);
-  const [isPending, startTransition] = useTransition();
+  const [resource, setResource] = useState(initialResource)
+  const [isPending, startTransition] = useTransition()
   return (
     <>
       <button
         disabled={isPending}
         onClick={() => {
           startTransition(() => {
-            const nextUserId = getNextId(resource.userId);
-            setResource(fetchProfileData(nextUserId));
-          });
+            const nextUserId = getNextId(resource.userId)
+            setResource(fetchProfileData(nextUserId))
+          })
         }}
       >
         Next
       </button>
-      {isPending ? " Loading..." : null}
+      {isPending ? ' Loading...' : null}
       <Suspense fallback={<Spinner />}>
         <ProfilePage resource={resource} />
       </Suspense>
     </>
-  );
+  )
 }
 ```
 
@@ -434,8 +448,8 @@ function App() {
 
 ```javascript
 function App() {
-  const [text, setText] = useState("hello");
-  const deferredText = useDeferredValue(text);
+  const [text, setText] = useState('hello')
+  const deferredText = useDeferredValue(text)
 
   return (
     <div className="App">
@@ -445,7 +459,7 @@ function App() {
       {/* 但当有必要时，列表可以“滞后” */}
       <MySlowList text={deferredText} />
     </div>
-  );
+  )
 }
 ```
 

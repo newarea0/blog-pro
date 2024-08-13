@@ -53,22 +53,25 @@ StrictMode 目前有助于：
 举例如下：
 
 ```jsx
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 function Counter() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
-  console.log("Component rendered"); // 在控制台打印组件渲染的消息
+  console.log('Component rendered') // 在控制台打印组件渲染的消息
 
   return (
     <div>
-      <p>Count: {count}</p>
+      <p>
+        Count:
+        {count}
+      </p>
       <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
-  );
+  )
 }
 
-export default Counter;
+export default Counter
 ```
 
 在上述代码中，我们使用了 React 的 useState 钩子来创建一个名为 count 的状态变量，并使用 setCount 函数来更新它。每次点击按钮时，计数器的值会增加，并且组件会重新渲染。

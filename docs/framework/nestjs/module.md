@@ -13,9 +13,9 @@
 ::: code-group
 
 ```ts [phone.module.ts]
-import { Module } from "@nestjs/common";
-import { PhoneService } from "./phone.service";
-import { PhoneController } from "./phone.controller";
+import { Module } from '@nestjs/common'
+import { PhoneService } from './phone.service'
+import { PhoneController } from './phone.controller'
 
 @Module({
   controllers: [PhoneController],
@@ -27,7 +27,7 @@ export class PhoneModule {}
 ```
 
 ```ts [phone.service.ts]
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PhoneService {
@@ -35,12 +35,12 @@ export class PhoneService {
     return [
       {
         id: 1,
-        name: "iPhone 12",
+        name: 'iPhone 12',
         price: 12000,
-        description: "Awesome phone",
-        category: "smartphone",
+        description: 'Awesome phone',
+        category: 'smartphone',
       },
-    ];
+    ]
   }
 }
 ```
@@ -50,10 +50,10 @@ export class PhoneService {
 ::: code-group
 
 ```ts [user.module.ts]
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
-import { PhoneModule } from "../phone/phone.module";
+import { Module } from '@nestjs/common'
+import { PhoneModule } from '../phone/phone.module'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   // 导入 phone 模块
@@ -65,18 +65,18 @@ export class UserModule {}
 ```
 
 ```ts [user.controller.ts]
-import { Controller, Get } from "@nestjs/common";
-import { PhoneService } from "../phone/phone.service";
+import { Controller, Get } from '@nestjs/common'
+import { PhoneService } from '../phone/phone.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   constructor(private readonly phoneService: PhoneService) {}
 
-  @Get("phone")
+  @Get('phone')
   async getUserPhone() {
     // 在 user 模块中，使用 phone 模块中的 PhoneService
-    const phone = await this.phoneService.getAllPhones();
-    return phone;
+    const phone = await this.phoneService.getAllPhones()
+    return phone
   }
 }
 ```
@@ -88,9 +88,9 @@ export class UserController {
 ::: code-group
 
 ```ts [phone.module.ts]
-import { Module, Global } from "@nestjs/common";
-import { PhoneService } from "./phone.service";
-import { PhoneController } from "./phone.controller";
+import { Global, Module } from '@nestjs/common'
+import { PhoneService } from './phone.service'
+import { PhoneController } from './phone.controller'
 
 @Global() // [!code ++]
 @Module({
@@ -102,7 +102,7 @@ export class PhoneModule {}
 ```
 
 ```ts [phone.service.ts]
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PhoneService {
@@ -110,12 +110,12 @@ export class PhoneService {
     return [
       {
         id: 1,
-        name: "iPhone 12",
+        name: 'iPhone 12',
         price: 12000,
-        description: "Awesome phone",
-        category: "smartphone",
+        description: 'Awesome phone',
+        category: 'smartphone',
       },
-    ];
+    ]
   }
 }
 ```
@@ -124,9 +124,9 @@ export class PhoneService {
 ::: code-group
 
 ```ts [user.module.ts]
-import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserController } from "./user.controller";
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
 
 @Module({
   // 无需导入 phone 模块
@@ -138,18 +138,18 @@ export class UserModule {}
 ```
 
 ```ts [user.controller.ts]
-import { Controller, Get } from "@nestjs/common";
-import { PhoneService } from "../phone/phone.service";
+import { Controller, Get } from '@nestjs/common'
+import { PhoneService } from '../phone/phone.service'
 
-@Controller("user")
+@Controller('user')
 export class UserController {
   constructor(private readonly phoneService: PhoneService) {}
 
-  @Get("phone")
+  @Get('phone')
   async getUserPhone() {
     // 在 user 模块中，使用 phone 模块中的 PhoneService
-    const phone = await this.phoneService.getAllPhones();
-    return phone;
+    const phone = await this.phoneService.getAllPhones()
+    return phone
   }
 }
 ```

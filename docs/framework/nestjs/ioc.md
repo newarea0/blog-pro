@@ -25,43 +25,43 @@ NestJS 使用依赖注入和控制反转（Inversion of Control，IoC）的主�
 ```typescript
 // ioc容器
 class Container {
-  private dependencies: { [key: string]: any } = {};
+  private dependencies: { [key: string]: any } = {}
 
   register(name: string, dependency: any): void {
-    this.dependencies[name] = dependency;
+    this.dependencies[name] = dependency
   }
 
   resolve(name: string): any {
     if (this.dependencies[name]) {
-      return this.dependencies[name];
+      return this.dependencies[name]
     }
-    throw new Error(`Dependency '${name}' not found.`);
+    throw new Error(`Dependency '${name}' not found.`)
   }
 }
 
 // 提供者
 class CatService {
-  private name: string;
+  private name: string
 
   constructor(name: string) {
-    this.name = name;
+    this.name = name
   }
 
   getName(): void {
-    console.log(this.name);
+    console.log(this.name)
   }
 }
 
 // 创建一个容器实例
-const container = new Container();
+const container = new Container()
 
 // 注册依赖关系
-container.register("catService", new CatService("小花猫"));
+container.register('catService', new CatService('小花猫'))
 
 // 解析依赖关系
-const catService = container.resolve("catService");
+const catService = container.resolve('catService')
 
-catService.getName(); // 小花猫
+catService.getName() // 小花猫
 ```
 
 在上述代码中，我们创建了一个 IoC 容器，并使用 register()方法来注册依赖关系，使用 resolve()方法来解析依赖关系。
@@ -73,15 +73,15 @@ catService.getName(); // 小花猫
 ```typescript
 // 基础写法
 class Car {
-  private engine: Engine;
+  private engine: Engine
 
   constructor(engine: Engine) {
-    this.engine = engine;
+    this.engine = engine
   }
 
   start() {
-    this.engine.start();
-    console.log("Car started");
+    this.engine.start()
+    console.log('Car started')
   }
 }
 ```
@@ -95,8 +95,8 @@ class Car {
   constructor(private engine: Engine) {}
 
   start() {
-    this.engine.start();
-    console.log("Car started");
+    this.engine.start()
+    console.log('Car started')
   }
 }
 ```
@@ -104,8 +104,8 @@ class Car {
 上述在 nestjs 中，我们也可以写为：
 
 ```typescript
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
+import { Controller, Get } from '@nestjs/common'
+import { AppService } from './app.service'
 
 @Controller()
 export class AppController {
@@ -113,7 +113,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return this.appService.getHello()
   }
 }
 ```
@@ -121,20 +121,20 @@ export class AppController {
 上述可以更改为：
 
 ```typescript
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
+import { Controller, Get } from '@nestjs/common'
+import { AppService } from './app.service'
 
 @Controller()
 export class AppController {
-  private readonly appService: AppService;
+  private readonly appService: AppService
 
   constructor(appService: AppService) {
-    this.appService = appService;
+    this.appService = appService
   }
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return this.appService.getHello()
   }
 }
 ```

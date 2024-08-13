@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
-import { Card } from "antd";
+import React, { useContext } from 'react'
 
-const ThemeContext = React.createContext("default");
+const ThemeContext = React.createContext('default')
 
 function Footer() {
-  const theme = useContext(ThemeContext);
-  return <div>The theme in Footer is: {theme}</div>;
+  const theme = useContext(ThemeContext)
+  return (
+    <div>
+      The theme in Footer is:
+      {theme}
+    </div>
+  )
 }
 
 function NestedTheme() {
@@ -18,7 +22,7 @@ function NestedTheme() {
         </ThemeContext.Provider>
       </ThemeContext.Provider>
     </Card>
-  );
+  )
 }
 
-export default NestedTheme;
+export default NestedTheme

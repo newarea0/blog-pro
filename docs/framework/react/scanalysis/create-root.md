@@ -12,43 +12,43 @@ createRoot 流程图地址：[createRoot 流程图](https://boardmix.cn/app/shar
 export function createRoot(container, options) {
   // 检查容器是否为有效的 DOM 元素
   if (!isValidContainer(container)) {
-    throw new Error("createRoot(...): Target container is not a DOM element.");
+    throw new Error('createRoot(...): Target container is not a DOM element.')
   }
 
   // 在开发环境下，如果容器是 ReactDOM 容器，则发出警告
-  warnIfReactDOMContainerInDEV(container);
+  warnIfReactDOMContainerInDEV(container)
 
   // 初始化选项的默认值
-  let isStrictMode = false;
-  let concurrentUpdatesByDefaultOverride = false;
-  let identifierPrefix = "";
-  let onRecoverableError = defaultOnRecoverableError;
-  let transitionCallbacks = null;
+  let isStrictMode = false
+  let concurrentUpdatesByDefaultOverride = false
+  let identifierPrefix = ''
+  let onRecoverableError = defaultOnRecoverableError
+  let transitionCallbacks = null
 
   // 处理传入的选项参数
   if (options !== null && options !== undefined) {
     // 处理严格模式选项
     if (options.unstable_strictMode === true) {
-      isStrictMode = true;
+      isStrictMode = true
     }
     // 处理并发更新选项
     if (
-      allowConcurrentByDefault &&
-      options.unstable_concurrentUpdatesByDefault === true
+      allowConcurrentByDefault
+      && options.unstable_concurrentUpdatesByDefault === true
     ) {
-      concurrentUpdatesByDefaultOverride = true;
+      concurrentUpdatesByDefaultOverride = true
     }
     // 处理标识符前缀选项
     if (options.identifierPrefix !== undefined) {
-      identifierPrefix = options.identifierPrefix;
+      identifierPrefix = options.identifierPrefix
     }
     // 处理可恢复错误回调选项
     if (options.onRecoverableError !== undefined) {
-      onRecoverableError = options.onRecoverableError;
+      onRecoverableError = options.onRecoverableError
     }
     // 处理过渡回调选项
     if (options.unstable_transitionCallbacks !== undefined) {
-      transitionCallbacks = options.unstable_transitionCallbacks;
+      transitionCallbacks = options.unstable_transitionCallbacks
     }
   }
 
@@ -62,20 +62,20 @@ export function createRoot(container, options) {
     identifierPrefix,
     onRecoverableError,
     transitionCallbacks
-  );
+  )
   // 将容器标记为根节点
-  markContainerAsRoot(root.current, container);
+  markContainerAsRoot(root.current, container)
   // 设置当前的 Dispatcher
-  Dispatcher.current = ReactDOMClientDispatcher;
+  Dispatcher.current = ReactDOMClientDispatcher
 
   // 获取根容器元素
-  const rootContainerElement =
-    container.nodeType === COMMENT_NODE ? container.parentNode : container;
+  const rootContainerElement
+    = container.nodeType === COMMENT_NODE ? container.parentNode : container
   // 监听根容器元素上的所有支持的事件
-  listenToAllSupportedEvents(rootContainerElement);
+  listenToAllSupportedEvents(rootContainerElement)
 
   // 返回一个包含 _internalRoot 属性的新的 ReactDOMRoot 实例
-  return new ReactDOMRoot(root);
+  return new ReactDOMRoot(root)
 }
 ```
 
@@ -99,10 +99,10 @@ export function createContainer(
   transitionCallbacks
 ) {
   // 水合标志,默认为 false
-  const hydrate = false;
+  const hydrate = false
 
   // 初始子组件,默认为 null
-  const initialChildren = null;
+  const initialChildren = null
 
   // 调用 createFiberRoot 创建 Fiber 根节点
   return createFiberRoot(
@@ -116,7 +116,7 @@ export function createContainer(
     identifierPrefix,
     onRecoverableError,
     transitionCallbacks
-  );
+  )
 }
 ```
 
@@ -141,16 +141,16 @@ export function createFiberRoot(
     hydrate,
     identifierPrefix,
     onRecoverableError
-  );
+  )
 
   // 如果启用了 Suspense 回调，将 hydrationCallbacks 设置为 root 的 hydrationCallbacks 属性
   if (enableSuspenseCallback) {
-    root.hydrationCallbacks = hydrationCallbacks;
+    root.hydrationCallbacks = hydrationCallbacks
   }
 
   // 如果启用了 Transition Tracing，将 transitionCallbacks 设置为 root 的 transitionCallbacks 属性
   if (enableTransitionTracing) {
-    root.transitionCallbacks = transitionCallbacks;
+    root.transitionCallbacks = transitionCallbacks
   }
 
   // 创建一个未初始化的 Fiber 作为根节点
@@ -158,50 +158,51 @@ export function createFiberRoot(
     tag,
     isStrictMode,
     concurrentUpdatesByDefaultOverride
-  );
+  )
 
   // 将未初始化的 Fiber 设置为 root 的 current 属性
-  root.current = uninitializedFiber;
+  root.current = uninitializedFiber
 
   // 将 root 设置为未初始化的 Fiber 的 stateNode 属性
-  uninitializedFiber.stateNode = root;
+  uninitializedFiber.stateNode = root
 
   // 如果启用了缓存
   if (enableCache) {
     // 创建一个初始缓存对象
-    const initialCache = createCache();
-    retainCache(initialCache);
+    const initialCache = createCache()
+    retainCache(initialCache)
 
     // 将初始缓存对象设置为 root 的 pooledCache 属性
-    root.pooledCache = initialCache;
-    retainCache(initialCache);
+    root.pooledCache = initialCache
+    retainCache(initialCache)
 
     // 创建初始状态对象
     const initialState = {
       element: initialChildren, // 初始子元素
       isDehydrated: hydrate, // 是否进行 hydration
       cache: initialCache, // 缓存对象
-    };
+    }
 
     // 将初始状态对象设置为未初始化的 Fiber 的 memoizedState 属性
-    uninitializedFiber.memoizedState = initialState;
-  } else {
+    uninitializedFiber.memoizedState = initialState
+  }
+  else {
     // 创建不包含缓存的初始状态对象
     const initialState = {
       element: initialChildren, // 初始子元素
       isDehydrated: hydrate, // 是否进行 hydration
       cache: null, // 尚未启用缓存
-    };
+    }
 
     // 将初始状态对象设置为未初始化的 Fiber 的 memoizedState 属性
-    uninitializedFiber.memoizedState = initialState;
+    uninitializedFiber.memoizedState = initialState
   }
 
   // 初始化未初始化的 Fiber 的更新队列
-  initializeUpdateQueue(uninitializedFiber);
+  initializeUpdateQueue(uninitializedFiber)
 
   // 返回创建的 FiberRootNode 对象
-  return root;
+  return root
 }
 ```
 
@@ -213,65 +214,65 @@ function FiberRootNode(
   identifierPrefix, // 标识符前缀
   onRecoverableError // 可恢复错误回调函数
 ) {
-  this.tag = tag; // 标签
-  this.containerInfo = containerInfo; // 容器信息
-  this.pendingChildren = null; // 待处理的子节点
-  this.current = null; // 当前工作单元
-  this.pingCache = null; // Ping缓存
-  this.finishedWork = null; // 完成的工作单元
-  this.timeoutHandle = noTimeout; // 超时句柄
-  this.cancelPendingCommit = null; // 取消待处理的提交
-  this.context = null; // 上下文
-  this.pendingContext = null; // 待处理的上下文
-  this.next = null; // 下一个工作单元
-  this.callbackNode = null; // 回调节点
-  this.callbackPriority = NoLane; // 回调优先级
-  this.expirationTimes = createLaneMap(NoTimestamp); // 过期时间
+  this.tag = tag // 标签
+  this.containerInfo = containerInfo // 容器信息
+  this.pendingChildren = null // 待处理的子节点
+  this.current = null // 当前工作单元
+  this.pingCache = null // Ping缓存
+  this.finishedWork = null // 完成的工作单元
+  this.timeoutHandle = noTimeout // 超时句柄
+  this.cancelPendingCommit = null // 取消待处理的提交
+  this.context = null // 上下文
+  this.pendingContext = null // 待处理的上下文
+  this.next = null // 下一个工作单元
+  this.callbackNode = null // 回调节点
+  this.callbackPriority = NoLane // 回调优先级
+  this.expirationTimes = createLaneMap(NoTimestamp) // 过期时间
 
-  this.pendingLanes = NoLanes; // 待处理的Lanes
-  this.suspendedLanes = NoLanes; // 暂停的Lanes
-  this.pingedLanes = NoLanes; // Ping的Lanes
-  this.expiredLanes = NoLanes; // 过期的Lanes
-  this.finishedLanes = NoLanes; // 完成的Lanes
-  this.errorRecoveryDisabledLanes = NoLanes; // 禁用错误恢复的Lanes
-  this.shellSuspendCounter = 0; // Shell挂起计数器
+  this.pendingLanes = NoLanes // 待处理的Lanes
+  this.suspendedLanes = NoLanes // 暂停的Lanes
+  this.pingedLanes = NoLanes // Ping的Lanes
+  this.expiredLanes = NoLanes // 过期的Lanes
+  this.finishedLanes = NoLanes // 完成的Lanes
+  this.errorRecoveryDisabledLanes = NoLanes // 禁用错误恢复的Lanes
+  this.shellSuspendCounter = 0 // Shell挂起计数器
 
-  this.entangledLanes = NoLanes; // 关联的Lanes
-  this.entanglements = createLaneMap(NoLanes); // 关联的Lanes映射
+  this.entangledLanes = NoLanes // 关联的Lanes
+  this.entanglements = createLaneMap(NoLanes) // 关联的Lanes映射
 
-  this.hiddenUpdates = createLaneMap(null); // 隐藏的更新
+  this.hiddenUpdates = createLaneMap(null) // 隐藏的更新
 
-  this.identifierPrefix = identifierPrefix; // 标识符前缀
-  this.onRecoverableError = onRecoverableError; // 可恢复错误回调函数
+  this.identifierPrefix = identifierPrefix // 标识符前缀
+  this.onRecoverableError = onRecoverableError // 可恢复错误回调函数
 
   if (enableCache) {
-    this.pooledCache = null; // 缓存池
-    this.pooledCacheLanes = NoLanes; // 缓存池的Lanes
+    this.pooledCache = null // 缓存池
+    this.pooledCacheLanes = NoLanes // 缓存池的Lanes
   }
 
   if (enableSuspenseCallback) {
-    this.hydrationCallbacks = null; // 悬挂回调函数
+    this.hydrationCallbacks = null // 悬挂回调函数
   }
 
-  this.incompleteTransitions = new Map(); // 不完整的过渡
+  this.incompleteTransitions = new Map() // 不完整的过渡
   if (enableTransitionTracing) {
-    this.transitionCallbacks = null; // 过渡回调函数
-    const transitionLanesMap = (this.transitionLanes = []); // 过渡的Lanes映射
+    this.transitionCallbacks = null // 过渡回调函数
+    const transitionLanesMap = (this.transitionLanes = []) // 过渡的Lanes映射
     for (let i = 0; i < TotalLanes; i++) {
-      transitionLanesMap.push(null);
+      transitionLanesMap.push(null)
     }
   }
 
   if (enableProfilerTimer && enableProfilerCommitHooks) {
-    this.effectDuration = 0; // 效果持续时间
-    this.passiveEffectDuration = 0; // 被动效果持续时间
+    this.effectDuration = 0 // 效果持续时间
+    this.passiveEffectDuration = 0 // 被动效果持续时间
   }
 
   if (enableUpdaterTracking) {
-    this.memoizedUpdaters = new Set(); // 记忆化的更新器
-    const pendingUpdatersLaneMap = (this.pendingUpdatersLaneMap = []); // 待处理的更新器的Lanes映射
+    this.memoizedUpdaters = new Set() // 记忆化的更新器
+    const pendingUpdatersLaneMap = (this.pendingUpdatersLaneMap = []) // 待处理的更新器的Lanes映射
     for (let i = 0; i < TotalLanes; i++) {
-      pendingUpdatersLaneMap.push(new Set());
+      pendingUpdatersLaneMap.push(new Set())
     }
   }
 }
@@ -283,36 +284,38 @@ export function createHostRootFiber(
   isStrictMode, // 是否启用严格模式
   concurrentUpdatesByDefaultOverride // 并发更新的默认设置
 ) {
-  let mode; // 模式变量
+  let mode // 模式变量
 
   if (tag === ConcurrentRoot) {
     // 如果标记为ConcurrentRoot
-    mode = ConcurrentMode; // 设置模式为ConcurrentMode
+    mode = ConcurrentMode // 设置模式为ConcurrentMode
 
     if (isStrictMode === true || createRootStrictEffectsByDefault) {
       // 如果启用了严格模式或者createRootStrictEffectsByDefault为真
-      mode |= StrictLegacyMode | StrictEffectsMode; // 设置模式为StrictLegacyMode和StrictEffectsMode
+      mode |= StrictLegacyMode | StrictEffectsMode // 设置模式为StrictLegacyMode和StrictEffectsMode
     }
 
     if (forceConcurrentByDefaultForTesting) {
       // 仅用于测试，强制默认启用并发模式
-      mode |= ConcurrentUpdatesByDefaultMode; // 设置模式为ConcurrentUpdatesByDefaultMode
-    } else if (allowConcurrentByDefault && concurrentUpdatesByDefaultOverride) {
-      // 仅用于内部实验，如果允许默认启用并发模式并且有并发更新的默认设置
-      mode |= ConcurrentUpdatesByDefaultMode; // 设置模式为ConcurrentUpdatesByDefaultMode
+      mode |= ConcurrentUpdatesByDefaultMode // 设置模式为ConcurrentUpdatesByDefaultMode
     }
-  } else {
-    mode = NoMode; // 如果标记不是ConcurrentRoot，则模式为NoMode
+    else if (allowConcurrentByDefault && concurrentUpdatesByDefaultOverride) {
+      // 仅用于内部实验，如果允许默认启用并发模式并且有并发更新的默认设置
+      mode |= ConcurrentUpdatesByDefaultMode // 设置模式为ConcurrentUpdatesByDefaultMode
+    }
+  }
+  else {
+    mode = NoMode // 如果标记不是ConcurrentRoot，则模式为NoMode
   }
 
   if (enableProfilerTimer && isDevToolsPresent) {
     // 如果启用了性能分析计时器并且DevTools存在
     // 总是收集性能分析时间，以便DevTools可以在任何时刻开始捕获时间
     // 而不会有树中的某些节点具有空的基准时间
-    mode |= ProfileMode; // 设置模式为ProfileMode
+    mode |= ProfileMode // 设置模式为ProfileMode
   }
 
-  return createFiber(HostRoot, null, null, mode); // 创建并返回一个Fiber节点
+  return createFiber(HostRoot, null, null, mode) // 创建并返回一个Fiber节点
 }
 ```
 
@@ -417,7 +420,7 @@ finishedLanes：表示已完成的调度优先级（lanes），用于标记已�
 
 ```
 
-errorRecoveryDisabledLanes：表示禁用错误恢复的调度优先级（lanes），用于标记禁用错误恢复的任务。   
+errorRecoveryDisabledLanes：表示禁用错误恢复的调度优先级（lanes），用于标记禁用错误恢复的任务。
 
 onRecoverableError：可恢复错误发生时的回调函数。
 

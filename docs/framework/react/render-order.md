@@ -13,19 +13,19 @@
 考虑以下代码：
 
 ```jsx
-const Parent = () => {
-  console.log("Parent Render");
+function Parent() {
+  console.log('Parent Render')
   return (
     <div>
       <Child />
     </div>
-  );
-};
+  )
+}
 
-const Child = () => {
-  console.log("Child Render");
-  return <div>Child</div>;
-};
+function Child() {
+  console.log('Child Render')
+  return <div>Child</div>
+}
 ```
 
 在这个例子中，当`Parent`组件被触发渲染时，控制台的输出顺序会是：
@@ -48,25 +48,25 @@ Child Render
 考虑以下代码：
 
 ```jsx
-const Parent = () => {
+function Parent() {
   useEffect(() => {
-    console.log("Parent useEffect");
-  }, []);
+    console.log('Parent useEffect')
+  }, [])
 
   return (
     <div>
       <Child />
     </div>
-  );
-};
+  )
+}
 
-const Child = () => {
+function Child() {
   useEffect(() => {
-    console.log("Child useEffect");
-  }, []);
+    console.log('Child useEffect')
+  }, [])
 
-  return <div>Child</div>;
-};
+  return <div>Child</div>
+}
 ```
 
 在这个例子中，控制台的输出顺序会是：
@@ -91,7 +91,7 @@ Parent useEffect
 ```jsx
 class Parent extends React.Component {
   componentDidMount() {
-    console.log("Parent componentDidMount");
+    console.log('Parent componentDidMount')
   }
 
   render() {
@@ -99,17 +99,17 @@ class Parent extends React.Component {
       <div>
         <Child />
       </div>
-    );
+    )
   }
 }
 
 class Child extends React.Component {
   componentDidMount() {
-    console.log("Child componentDidMount");
+    console.log('Child componentDidMount')
   }
 
   render() {
-    return <div>Child</div>;
+    return <div>Child</div>
   }
 }
 ```

@@ -8,7 +8,7 @@
 
 ```javascript
 {
-    words: [2003644449, 1081552243, 594308145, 1718382376], 
+    words: [2003644449, 1081552243, 594308145, 1718382376],
     sigBytes: 16
 }
 ```
@@ -40,40 +40,38 @@
 如果已知utf8编码的明文，则可以使用 `CryptoJS.enc.Utf8.parse` 方法生成 `WordArray` 对象。
 
 ```javascript
-const CryptoJS = require("crypto-js");
+const CryptoJS = require('crypto-js')
 
 // 生成 WordArray 对象
-const keyWordArray = CryptoJS.enc.Utf8.parse("wm0!@w-s#ll1flo(");
-console.log(keyWordArray);
+const keyWordArray = CryptoJS.enc.Utf8.parse('wm0!@w-s#ll1flo(')
+console.log(keyWordArray)
 ```
-
 
 #### 通过 CryptoJS.lib.WordArray.create 生成
 
 ```javascript
-const CryptoJS = require("crypto-js");
-const words = [2003644449, 1081552243, 594308145, 1718382376]; // 32位整数数组（words数组）
-const sigBytes = 16;
+const CryptoJS = require('crypto-js')
+const words = [2003644449, 1081552243, 594308145, 1718382376] // 32位整数数组（words数组）
+const sigBytes = 16
 
 // 使用 CryptoJS 转换字节数组到 WordArray
-const keyWordArray = CryptoJS.lib.WordArray.create(words, sigBytes);
+const keyWordArray = CryptoJS.lib.WordArray.create(words, sigBytes)
 
-console.log(keyWordArray);
+console.log(keyWordArray)
 ```
-
 
 ### 如何将 WordArray 转化为 UTF-8 字符串
 
 ```javascript
-const CryptoJS = require("crypto-js");
+const CryptoJS = require('crypto-js')
 const wordArrayBytes = {
-    words: [ 2003644449, 1081552243, 594308145, 1718382376 ],
-    sigBytes: 16
-};
+  words: [2003644449, 1081552243, 594308145, 1718382376],
+  sigBytes: 16
+}
 
 // 将 WordArray 转换为 UTF-8 字符串
-const key = CryptoJS.enc.Utf8.stringify(wordArrayBytes);
-console.log(key);
+const key = CryptoJS.enc.Utf8.stringify(wordArrayBytes)
+console.log(key)
 
 // wm0!@w-s#ll1flo(
 ```
@@ -81,15 +79,15 @@ console.log(key);
 ### 如何将 WordArray 转化为十六进制Hex
 
 ```javascript
-const CryptoJS = require("crypto-js");
+const CryptoJS = require('crypto-js')
 const wordArrayBytes = {
-    words: [ 2003644449, 1081552243, 594308145, 1718382376 ],
-    sigBytes: 16
-};
+  words: [2003644449, 1081552243, 594308145, 1718382376],
+  sigBytes: 16
+}
 
 // 将 WordArray 转换为十六进制Hex
-const key = CryptoJS.enc.Hex.stringify(wordArrayBytes);
-console.log(key);
+const key = CryptoJS.enc.Hex.stringify(wordArrayBytes)
+console.log(key)
 
 // 776d302140772d73236c6c31666c6f28
 ```
@@ -105,23 +103,23 @@ console.log(key);
 ```javascript
 // 判断一个字符串是否为十六进制字符串的函数
 function isHexString(str) {
-    // 检查长度是否为偶数
-    if (str.length % 2 !== 0) {
-        return false;
-    }
-    // 使用正则表达式检查字符串是否只包含合法的十六进制字符（0-9, a-f, A-f）
-    const hexRegex = /^[0-9a-fA-F]+$/;
-    return hexRegex.test(str);
+  // 检查长度是否为偶数
+  if (str.length % 2 !== 0) {
+    return false
+  }
+  // 使用正则表达式检查字符串是否只包含合法的十六进制字符（0-9, a-f, A-f）
+  const hexRegex = /^[0-9a-f]+$/i
+  return hexRegex.test(str)
 }
 
 // 示例测试
-const testHexString1 = "776d302140772d73236c6c31666c6f28";
-const testHexString2 = "1a2b3g4d5e"; // 包含非法字符 'g'
-const testHexString3 = "123";        // 长度为奇数
+const testHexString1 = '776d302140772d73236c6c31666c6f28'
+const testHexString2 = '1a2b3g4d5e' // 包含非法字符 'g'
+const testHexString3 = '123' // 长度为奇数
 
-console.log(isHexString(testHexString1)); // 输出：true
-console.log(isHexString(testHexString2)); // 输出：false
-console.log(isHexString(testHexString3)); // 输出：false
+console.log(isHexString(testHexString1)) // 输出：true
+console.log(isHexString(testHexString2)) // 输出：false
+console.log(isHexString(testHexString3)) // 输出：false
 ```
 
 ### WordArray整数数组、Hex十六进制、ByteArray字节数组、UTF-8字符串之间的相互转换
@@ -129,76 +127,76 @@ console.log(isHexString(testHexString3)); // 输出：false
 ```javascript
 // 判断一个数组是否为字节数组（每个元素为0到255之间的整数）
 function isByteArray(arr) {
-    // 首先检查是否为数组
-    if (!Array.isArray(arr)) {
-        return false;
+  // 首先检查是否为数组
+  if (!Array.isArray(arr)) {
+    return false
+  }
+  // 检查每个元素是否为0到255之间的整数
+  for (let i = 0; i < arr.length; i++) {
+    if (typeof arr[i] !== 'number' || arr[i] < 0 || arr[i] > 255 || !Number.isInteger(arr[i])) {
+      return false
     }
-    // 检查每个元素是否为0到255之间的整数
-    for (let i = 0; i < arr.length; i++) {
-        if (typeof arr[i] !== 'number' || arr[i] < 0 || arr[i] > 255 || !Number.isInteger(arr[i])) {
-            return false;
-        }
-    }
-    return true;
+  }
+  return true
 }
 
 // 将字节数组转换为十六进制字符串的函数
 function bytesToHex(bytes) {
-    if (!isByteArray(bytes)) {
-        throw new Error('输入必须是字节数组');
-    }
-    return bytes.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  if (!isByteArray(bytes)) {
+    throw new Error('输入必须是字节数组')
+  }
+  return bytes.map(byte => byte.toString(16).padStart(2, '0')).join('')
 }
 
 // 将十六进制字符串转换为字节数组的函数
 function hexToBytes(hex) {
-    let bytes = [];
-    for (let c = 0; c < hex.length; c += 2) {
-        bytes.push(parseInt(hex.substr(c, 2), 16));
-    }
-    return bytes;
+  const bytes = []
+  for (let c = 0; c < hex.length; c += 2) {
+    bytes.push(Number.parseInt(hex.substr(c, 2), 16))
+  }
+  return bytes
 }
 
 // 将32位整数数组（words数组）转换为字节数组的函数
 function wordsToBytes(words) {
-    let bytes = [];
-    for (let i = 0; i < words.length; i++) {
-        let word = words[i];
-        bytes.push((word >> 24) & 0xFF);
-        bytes.push((word >> 16) & 0xFF);
-        bytes.push((word >> 8) & 0xFF);
-        bytes.push(word & 0xFF);
-    }
-    return bytes;
+  const bytes = []
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    bytes.push((word >> 24) & 0xFF)
+    bytes.push((word >> 16) & 0xFF)
+    bytes.push((word >> 8) & 0xFF)
+    bytes.push(word & 0xFF)
+  }
+  return bytes
 }
 
 // 将字节数组转换为UTF-8字符串的函数
 function bytesToStringUTF8(bytes) {
-    if (!isByteArray(bytes)) {
-        throw new Error('输入必须是字节数组');
-    }
-    return new TextDecoder('utf-8').decode(new Uint8Array(bytes));
+  if (!isByteArray(bytes)) {
+    throw new Error('输入必须是字节数组')
+  }
+  return new TextDecoder('utf-8').decode(new Uint8Array(bytes))
 }
 
-let key = { words: [2003644449, 1081552243, 594308145, 1718382376], sigBytes: 16 };
+const key = { words: [2003644449, 1081552243, 594308145, 1718382376], sigBytes: 16 }
 
 // 将key的words数组转换为字节数组
-let keyBytes = wordsToBytes(key.words);
+const keyBytes = wordsToBytes(key.words)
 
 // 将字节数组转换为十六进制字符串，测试使用
-let keyHex = bytesToHex(keyBytes);
+const keyHex = bytesToHex(keyBytes)
 
 // 打印key和iv的十六进制字符串
-console.log("十六进制Hex:", keyHex);
+console.log('十六进制Hex:', keyHex)
 
 // 将十六进制字符串还原为字节数组，以确保转换过程的无损失和准确性，测试使用
-let keyBytesFromHex = hexToBytes(keyHex);
+const keyBytesFromHex = hexToBytes(keyHex)
 
 // 将字节数组转换为UTF-8字符串，得到最终的字符串表示
-let keyString = bytesToStringUTF8(keyBytes);
+const keyString = bytesToStringUTF8(keyBytes)
 
 // 打印key和iv的UTF-8字符串表示
-console.log("字符串UTF-8:", keyString);
+console.log('字符串UTF-8:', keyString)
 ```
 
 ### 用 Uint8Array 生成字节数组
@@ -212,17 +210,29 @@ Uint8Array 的特点包括以下几点：
 ```javascript
 // 用 Uint8Array 生成字节数组
 const uint8Array = Uint8Array.from([
-    119, 109, 48, 33, 64,
-    119, 45, 115, 35, 108,
-    108, 49, 102, 108, 111,
-    40
-]);
+  119,
+  109,
+  48,
+  33,
+  64,
+  119,
+  45,
+  115,
+  35,
+  108,
+  108,
+  49,
+  102,
+  108,
+  111,
+  40
+])
 
 // 使用 TextDecoder 将 bytes 转换为字符串
-const textDecoder = new TextDecoder();
-const decodedString = textDecoder.decode(uint8Array);
+const textDecoder = new TextDecoder()
+const decodedString = textDecoder.decode(uint8Array)
 
-console.log(decodedString);
+console.log(decodedString)
 
 // wm0!@w-s#ll1flo(
 ```
@@ -232,16 +242,16 @@ console.log(decodedString);
 ```javascript
 // AES 加密
 function encrypt(word) {
-     // 转化为 WordArray
-    const iv = CryptoJS.enc.Utf8.parse("0102030405060708");
-     // 转化为 WordArray
-    const key = CryptoJS.enc.Utf8.parse('wm0!@w-s#ll1flo(');
-    const encrypted = CryptoJS.AES.encrypt(word, key, {
-        iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    })
-    return encrypted.toString();
+  // 转化为 WordArray
+  const iv = CryptoJS.enc.Utf8.parse('0102030405060708')
+  // 转化为 WordArray
+  const key = CryptoJS.enc.Utf8.parse('wm0!@w-s#ll1flo(')
+  const encrypted = CryptoJS.AES.encrypt(word, key, {
+    iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+  })
+  return encrypted.toString()
 }
 ```
 

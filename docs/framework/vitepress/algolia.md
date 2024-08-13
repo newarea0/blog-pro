@@ -37,27 +37,27 @@ Algolia 是一种强大的搜索引擎，可以为你的 VitePress 网站提供�
 
 ```js
 // .vitepress/config.js
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   themeConfig: {
     search: {
       // provider: 'local', // 可以开启本地搜索
-      provider: "algolia",
+      provider: 'algolia',
       options: {
-        appId: "你的appId",
-        apiKey: "你的apiKey",
-        indexName: "你的indexName",
-        placeholder: "请输入关键词",
+        appId: '你的appId',
+        apiKey: '你的apiKey',
+        indexName: '你的indexName',
+        placeholder: '请输入关键词',
         translations: {
           button: {
-            buttonText: "请输入关键词",
+            buttonText: '请输入关键词',
           },
         },
       },
     },
   },
-});
+})
 ```
 
 配置完成后，你就可以在你的 VitePress 网站上使用 Algolia 搜索功能了。
@@ -136,4 +136,3 @@ return records;
 ```
 
 将 recordExtractor 内容替换上述代码块即可,lang 便可设置为 `zh-CN`。
-

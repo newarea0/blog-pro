@@ -1,34 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react'
 // @ts-ignore
-import useDeepCompareEffect from "./useDeepCompareEffect";
-import { message, Card, Button, Space } from "antd";
+import { Button, Card, Space, message } from 'antd'
+import useDeepCompareEffect from './useDeepCompareEffect'
 
 function App() {
-  const [useInfo, setUserInfo] = useState({ name: "John", age: 25 });
+  const [useInfo, setUserInfo] = useState({ name: 'John', age: 25 })
 
   useEffect(() => {
-    message.info("useEffect has run due to userInfo object value change.");
-  }, [useInfo]);
+    message.info('useEffect has run due to userInfo object value change.')
+  }, [useInfo])
 
   useEffect(() => {
     message.info(
-      "useEffect JSON.stringify has run due to userInfo object value change."
-    );
-  }, [JSON.stringify(useInfo)]);
+      'useEffect JSON.stringify has run due to userInfo object value change.',
+    )
+  }, [JSON.stringify(useInfo)])
 
   useDeepCompareEffect(() => {
     message.info(
-      "useDeepCompareEffect has run due to userInfo object value change."
-    );
-  }, [useInfo]);
+      'useDeepCompareEffect has run due to userInfo object value change.',
+    )
+  }, [useInfo])
 
   const handleChangeUserInfo = () => {
-    setUserInfo({ ...useInfo });
-  };
+    setUserInfo({ ...useInfo })
+  }
 
   const handleChangeAge = () => {
-    setUserInfo({ ...useInfo, age: useInfo.age + 1 });
-  };
+    setUserInfo({ ...useInfo, age: useInfo.age + 1 })
+  }
 
   return (
     <Card title="案例 demo">
@@ -42,7 +42,7 @@ function App() {
         </Button>
       </Space>
     </Card>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 // 直接使用 defineProps，无需导入
 const props = defineProps<{
-  id: string;
-  title: string;
-}>();
+  id: string
+  title: string
+}>()
 
-const { id, title } = props;
+const { id, title } = props
 </script>
 
 <template>

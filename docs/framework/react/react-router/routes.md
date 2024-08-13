@@ -19,7 +19,7 @@
 这是最简单的路由设置。我们定义了两个路由：一个用于首页，另一个用于关于页面。
 
 ```jsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
   return (
@@ -29,15 +29,15 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 function Home() {
-  return <h1>这是首页</h1>;
+  return <h1>这是首页</h1>
 }
 
 function About() {
-  return <h1>这是关于页面</h1>;
+  return <h1>这是关于页面</h1>
 }
 ```
 
@@ -46,11 +46,16 @@ function About() {
 你可以使用动态路由来捕获 URL 中的变量部分。
 
 ```jsx
-<Route path="/user/:id" element={<User />} />;
+<Route path="/user/:id" element={<User />} />
 
 function User() {
-  let { id } = useParams();
-  return <h1>用户ID是：{id}</h1>;
+  const { id } = useParams()
+  return (
+    <h1>
+      用户ID是：
+      {id}
+    </h1>
+  )
 }
 ```
 
@@ -69,7 +74,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 function Layout() {
@@ -77,7 +82,7 @@ function Layout() {
     <div>
       <Outlet />
     </div>
-  );
+  )
 }
 ```
 
@@ -87,7 +92,7 @@ function Layout() {
 
 ```jsx
 function App() {
-  const isAuthenticated = false;
+  const isAuthenticated = false
 
   return (
     <BrowserRouter>
@@ -99,7 +104,7 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 ```
 
@@ -108,7 +113,7 @@ function App() {
 使用`React.lazy`和`Suspense`进行代码分割。
 
 ```jsx
-const LazyComponent = React.lazy(() => import("./LazyComponent"));
+const LazyComponent = React.lazy(() => import('./LazyComponent'))
 
 function App() {
   return (
@@ -117,15 +122,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/lazy"
-          element={
+          element={(
             <React.Suspense fallback={<div>加载中...</div>}>
               <LazyComponent />
             </React.Suspense>
-          }
+          )}
         />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 ```
 

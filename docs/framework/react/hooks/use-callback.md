@@ -5,7 +5,7 @@
 useCallback 是 React Hooks 中的一个重要成员，它允许我们在多次渲染中缓存函数。简单来说，它可以帮助我们避免因为函数的重新创建而导致的不必要的重新渲染。
 
 ```js
-const cachedFn = useCallback(fn, dependencies);
+const cachedFn = useCallback(fn, dependencies)
 ```
 
 ## 用法

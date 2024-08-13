@@ -1,39 +1,41 @@
-import { useRef, useState, useEffect } from "react";
-import { Card, Button, Space } from "antd";
+import { useEffect, useRef, useState } from 'react'
 
 function Timer() {
-  const [isRunning, setIsRunning] = useState(false);
-  const count = useRef(0);
-  const intervalRef = useRef(null);
+  const [isRunning, setIsRunning] = useState(false)
+  const count = useRef(0)
+  const intervalRef = useRef(null)
 
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        clearInterval(intervalRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   const startTimer = () => {
     if (!isRunning) {
-      setIsRunning(true);
+      setIsRunning(true)
       intervalRef.current = setInterval(() => {
-        count.current += 1;
-        console.log(`Timer has run ${count.current} times.`);
-      }, 1000);
+        count.current += 1
+        console.log(`Timer has run ${count.current} times.`)
+      }, 1000)
     }
-  };
+  }
 
   const stopTimer = () => {
     if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      setIsRunning(false);
+      clearInterval(intervalRef.current)
+      setIsRunning(false)
     }
-  };
+  }
 
   return (
     <Card title="案例 demo">
-      <p>Check the console to see the timer count：{count.current}</p>
+      <p>
+        Check the console to see the timer count：
+        {count.current}
+      </p>
       <Space>
         <Button onClick={startTimer} type="primary" disabled={isRunning}>
           开始
@@ -43,7 +45,7 @@ function Timer() {
         </Button>
       </Space>
     </Card>
-  );
+  )
 }
 
-export default Timer;
+export default Timer

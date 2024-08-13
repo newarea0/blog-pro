@@ -12,9 +12,9 @@
 
 ```javascript
 const UserPreferencesContext = React.createContext({
-  theme: "light",
-  fontSize: "medium",
-});
+  theme: 'light',
+  fontSize: 'medium',
+})
 ```
 
 ### 2. 使用 Provider
@@ -24,16 +24,16 @@ const UserPreferencesContext = React.createContext({
 ```javascript
 function App() {
   const [preferences, setPreferences] = React.useState({
-    theme: "light",
-    fontSize: "medium",
-  });
+    theme: 'light',
+    fontSize: 'medium',
+  })
 
   return (
     <UserPreferencesContext.Provider value={{ preferences, setPreferences }}>
       <Navbar />
       <Content />
     </UserPreferencesContext.Provider>
-  );
+  )
 }
 ```
 
@@ -43,17 +43,17 @@ function App() {
 
 ```javascript
 function Navbar() {
-  const { preferences } = React.useContext(UserPreferencesContext);
+  const { preferences } = React.useContext(UserPreferencesContext)
 
   return (
     <nav
       style={{
-        backgroundColor: preferences.theme === "dark" ? "#333" : "#FFF",
+        backgroundColor: preferences.theme === 'dark' ? '#333' : '#FFF',
       }}
     >
       {/* ... */}
     </nav>
-  );
+  )
 }
 ```
 
@@ -70,22 +70,21 @@ class Content extends React.Component {
           <div>
             <p
               style={{
-                fontSize: preferences.fontSize === "large" ? "20px" : "16px",
+                fontSize: preferences.fontSize === 'large' ? '20px' : '16px',
               }}
             >
               This is some content.
             </p>
             <button
               onClick={() =>
-                setPreferences((prev) => ({ ...prev, theme: "dark" }))
-              }
+                setPreferences(prev => ({ ...prev, theme: 'dark' }))}
             >
               Switch to Dark Theme
             </button>
           </div>
         )}
       </UserPreferencesContext.Consumer>
-    );
+    )
   }
 }
 ```

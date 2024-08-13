@@ -46,9 +46,9 @@ target 选项允许你设置 TypeScript 编译器将 TypeScript 代码编译为�
 编译后的代码：
 
 ```javascript
-var add = function (a, b) {
-  return a + b;
-};
+const add = function (a, b) {
+  return a + b
+}
 ```
 
 #### 2. ES5 示例
@@ -56,7 +56,7 @@ var add = function (a, b) {
 假设我们有以下 TypeScript 代码：
 
 ```typescript
-const add = (a: number, b: number) => a + b;
+const add = (a: number, b: number) => a + b
 ```
 
 如果在 `tsconfig.json` 中设置 `"target": "ES5"`，编译后的 JavaScript 代码将转换箭头函数为普通函数：
@@ -72,9 +72,9 @@ const add = (a: number, b: number) => a + b;
 编译后的代码：
 
 ```javascript
-var add = function (a, b) {
-  return a + b;
-};
+const add = function (a, b) {
+  return a + b
+}
 ```
 
 #### 3. ES6（ES2015） 示例
@@ -92,7 +92,7 @@ var add = function (a, b) {
 编译后的代码：
 
 ```javascript
-const add = (a, b) => a + b;
+const add = (a, b) => a + b
 ```
 
 ### module
@@ -119,8 +119,8 @@ const add = (a, b) => a + b;
 假设我们有以下 TypeScript 代码：
 
 ```typescript
-import { add } from "./math";
-console.log(add(1, 2));
+import { add } from './math'
+console.log(add(1, 2))
 ```
 
 如果在 `tsconfig.json` 中设置 `"module": "CommonJS"`，编译后的代码将使用 CommonJS 模块化标准：
@@ -136,8 +136,8 @@ console.log(add(1, 2));
 编译后的代码：
 
 ```javascript
-var math_1 = require("./math");
-console.log(math_1.add(1, 2));
+const math_1 = require('./math')
+console.log(math_1.add(1, 2))
 ```
 
 ##### 2.2 ES6 示例
@@ -155,8 +155,8 @@ console.log(math_1.add(1, 2));
 编译后的代码：
 
 ```javascript
-import { add } from "./math";
-console.log(add(1, 2));
+import { add } from './math'
+console.log(add(1, 2))
 ```
 
 ### lib
@@ -372,7 +372,7 @@ class Animal {
 
 class Dog extends Animal {
   constructor(name: string) {
-    super(name);
+    super(name)
   }
 }
 ```
@@ -380,20 +380,20 @@ class Dog extends Animal {
 当 `importHelpers` 设置为 `true` 时，编译后的代码将从 `tslib` 导入 `__extends` 辅助函数，而不是将其内联到输出文件中：
 
 ```javascript
-import * as tslib_1 from "tslib";
-var Animal = /** @class */ (function () {
+import * as tslib_1 from 'tslib'
+const Animal = /** @class */ (function () {
   function Animal(name) {
-    this.name = name;
+    this.name = name
   }
-  return Animal;
-})();
-var Dog = /** @class */ (function (_super) {
-  tslib_1.__extends(Dog, _super);
+  return Animal
+})()
+const Dog = /** @class */ (function (_super) {
+  tslib_1.__extends(Dog, _super)
   function Dog(name) {
-    return _super.call(this, name) || this;
+    return _super.call(this, name) || this
   }
-  return Dog;
-})(Animal);
+  return Dog
+})(Animal)
 ```
 
 ### noEmit
@@ -469,25 +469,25 @@ var Dog = /** @class */ (function (_super) {
 假设你有以下 TypeScript 文件：
 
 ```tsx
-import React from "react";
+import React from 'react'
 
-const App = () => {
-  return <div>Hello, World!</div>;
-};
+function App() {
+  return <div>Hello, World!</div>
+}
 
-export default App;
+export default App
 ```
 
 使用 `"react"` 选项编译后，输出文件将包含 `React.createElement` 调用：
 
 ```js
-import React from "react";
+import React from 'react'
 
-const App = () => {
-  return React.createElement("div", null, "Hello, World!");
-};
+function App() {
+  return React.createElement('div', null, 'Hello, World!')
+}
 
-export default App;
+export default App
 ```
 
 ##### 2.2 使用 React 17 新 JSX 转换
@@ -535,29 +535,29 @@ export default App;
 
 ```javascript
 module.exports = {
-  foo: "bar",
-};
+  foo: 'bar',
+}
 ```
 
 当 `esModuleInterop` 设置为 `true` 时，你可以使用 ES6 风格的导入语法来导入此模块：
 
 ```typescript
-import myModule from "./myModule";
+import myModule from './myModule'
 
-console.log(myModule.foo); // 输出 'bar'
+console.log(myModule.foo) // 输出 'bar'
 ```
 
 编译后的代码将包括 `__importDefault` 辅助函数，以确保导入的对象与 ES6 默认导入兼容：
 
 ```javascript
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-var myModule_1 = __importDefault(require("./myModule"));
+const __importDefault
+  = (this && this.__importDefault)
+  || function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
+  }
+const myModule_1 = __importDefault(require('./myModule'))
 
-console.log(myModule_1.default.foo); // 输出 'bar'
+console.log(myModule_1.default.foo) // 输出 'bar'
 ```
 
 ##### 2.2 禁用 esModuleInterop
@@ -565,9 +565,9 @@ console.log(myModule_1.default.foo); // 输出 'bar'
 如果你将 `esModuleInterop` 设置为 `false` 或完全省略该选项，你将需要使用 `import * as` 语法来导入 CommonJS 模块：
 
 ```typescript
-import * as myModule from "./myModule";
+import * as myModule from './myModule'
 
-console.log(myModule.foo); // 输出 'bar'
+console.log(myModule.foo) // 输出 'bar'
 ```
 
 `esModuleInterop` 选项允许你在 TypeScript 项目中更灵活地混合使用 CommonJS 和 ES6 模块。通过启用此选项，你可以使用更一致的导入语法，并确保导入的对象与 ES6 默认导入兼容。
@@ -602,10 +602,10 @@ console.log(myModule.foo); // 输出 'bar'
 
 ```typescript
 function greet(name: string) {
-  console.log(`Hello, ${name}!`);
+  console.log(`Hello, ${name}!`)
 }
 
-greet("World");
+greet('World')
 ```
 
 当 `sourceMap` 设置为 `true` 时，编译后你将得到两个文件：`example.js` 和 `example.js.map`。
@@ -614,11 +614,11 @@ greet("World");
 
 ```javascript
 function greet(name) {
-  console.log("Hello, " + name + "!");
+  console.log(`Hello, ${name}!`)
 }
 
-greet("World");
-//# sourceMappingURL=example.js.map
+greet('World')
+// # sourceMappingURL=example.js.map
 ```
 
 `example.js.map` 文件包含源映射信息，链接编译后的 JavaScript 代码与原始 TypeScript 代码。
@@ -675,16 +675,16 @@ projectRoot/
 
 ```typescript
 export function add(x: number, y: number): number {
-  return x + y;
+  return x + y
 }
 ```
 
 在 `main.ts` 文件中，你可以使用以下导入语句来引用 `math.ts` 文件：
 
 ```typescript
-import { add } from "utils/math";
+import { add } from 'utils/math'
 
-console.log(add(1, 2)); // 输出 3
+console.log(add(1, 2)) // 输出 3
 ```
 
 由于 `baseUrl` 被设置为 `./src`，所以编译器将从 `src` 目录开始解析 `'utils/math'` 导入路径。这使得你可以使用更简洁的路径来引用项目中的文件和模块。
@@ -724,10 +724,10 @@ console.log(add(1, 2)); // 输出 3
 
 ```typescript
 function greet(person: { name: string }) {
-  console.log(`Hello, ${person.name}!`);
+  console.log(`Hello, ${person.name}!`)
 }
 
-greet(null); // 错误：Argument of type 'null' is not assignable to parameter of type '{ name: string; }'.
+greet(null) // 错误：Argument of type 'null' is not assignable to parameter of type '{ name: string; }'.
 ```
 
 由于启用了 `strict` 选项，尤其是 `strictNullChecks`，所以传递 `null` 作为参数会导致类型错误。编译器会强制你确保传递的值符合期望的类型。
@@ -777,10 +777,10 @@ greet(null); // 错误：Argument of type 'null' is not assignable to parameter 
 你可以在 TypeScript 文件中直接导入此 JSON 文件：
 
 ```typescript
-import config from "./config.json";
+import config from './config.json'
 
-console.log(`App Name: ${config.appName}`); // 输出 "App Name: My App"
-console.log(`Version: ${config.version}`); // 输出 "Version: 1.0.0"
+console.log(`App Name: ${config.appName}`) // 输出 "App Name: My App"
+console.log(`Version: ${config.version}`) // 输出 "Version: 1.0.0"
 ```
 
 编译器将自动解析 JSON 文件的结构，并为导入的 `config` 对象提供正确的类型。
@@ -818,15 +818,15 @@ console.log(`Version: ${config.version}`); // 输出 "Version: 1.0.0"
 假设你有一个 CommonJS 模块 `myModule.js`：
 
 ```javascript
-exports.foo = "bar";
+exports.foo = 'bar'
 ```
 
 当 `allowSyntheticDefaultImports` 设置为 `true` 时，你可以使用 ES6 默认导入语法来导入此模块：
 
 ```typescript
-import myModule from "./myModule";
+import myModule from './myModule'
 
-console.log(myModule.foo); // 输出 'bar'
+console.log(myModule.foo) // 输出 'bar'
 ```
 
 请注意，这不会更改编译后的代码。编译后的代码仍将使用 CommonJS 的 `require` 语法。`allowSyntheticDefaultImports` 仅允许类型检查器接受这种导入形式。
@@ -880,8 +880,8 @@ projectRoot/
 在 `main.ts` 文件中，你可以使用定义的别名来导入 `math.ts` 和 `header.ts` 文件：
 
 ```typescript
-import * as math from "@utils/math";
-import * as header from "@components/header";
+import * as math from '@utils/math'
+import * as header from '@components/header'
 
 // 使用导入的模块
 ```

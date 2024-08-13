@@ -4,7 +4,6 @@
 >
 > 【擅长领域】：JS逆向、小程序逆向、AST还原、验证码突防、Python开发、浏览器插件开发、React前端开发、NestJS后端开发等等
 
-
 > 本文章中所有内容仅供学习交流使用，不用于其他任何目的，不提供完整代码，抓包内容、敏感网址、数据接口等均已做脱敏处理，严禁用于商业用途和非法用途，否则由此产生的一切后果均与作者无关！若有侵权，请联系作者立即删除！
 
 ### 前言
@@ -77,7 +76,6 @@ async def generate_qr():
 
 第二个接口，检测二维码状态的接口。
 
-
 ```python
 @app.get('/qr_status')
 async def qr_status(request: Request):
@@ -123,7 +121,6 @@ async def qr_status(request: Request):
 扫码登录成功后，后端服务和前端服务均可以拿到 `ck`。
 
 ![vscode-debugger-1](/images/reverse/jsreverse/xhs-scan-login/6.png)
-
 
 ### 功能验证
 

@@ -1,4 +1,3 @@
-
 # js补环境系列之剖析：原型、原型对象、实例对象三者互相转化（不讲废话、全是干货）
 
 思考下：js补环境中，什么场景会用到原型、原型对象、实例对象？
@@ -8,9 +7,9 @@
 在js补环境中，大多数平台会用 `navigator` 中的 `userAgent` 作为 `环境检测点`。你是不是可能会这样补：
 
 ```javascript
-var window = {};
-var navigator = {
-    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
+const window = {}
+const navigator = {
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
 }
 window.navigator = navigator
 ```
@@ -28,10 +27,10 @@ window.navigator = navigator
 可以发现，在 `Node` 环境下打印输出为：
 ```json
 {
-  value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36',
-  writable: true,
-  enumerable: true,
-  configurable: true
+  "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36",
+  "writable": true,
+  "enumerable": true,
+  "configurable": true
 }
 ```
 很明显，浏览器和 `Node` 环境下得到的结果是不一样的。所以得到的加密结果也是不一样的。
@@ -42,7 +41,6 @@ window.navigator = navigator
 
 为了方便理解，本文不会讲解太多基础概念，让人看的云里雾里的。我直接举例说明：
 
-
 ### 原型
 
 定义一个用户 `原型`，它其实就是一个函数，首写字母大写。
@@ -51,7 +49,7 @@ window.navigator = navigator
 function User() {
 
 }
-console.log("原型", User)
+console.log('原型', User)
 
 // 输出结果：[Function: User]
 ```
@@ -63,7 +61,7 @@ console.log("原型", User)
 首先，我们来看下 `User` 函数的 `原型对象` 是什么。
 
 ```javascript
-console.log("原型对象", User.prototype)
+console.log('原型对象', User.prototype)
 
 // 输出结果：{ }
 ```
@@ -76,13 +74,13 @@ function User() {
 
 }
 User.prototype = {
-    username: "小鱼神1024",
-    password: "12345678",
-    login() {
-        return `用户名：${this.username}\r\n密码：${this.password}`;
-    }
+  username: '小鱼神1024',
+  password: '12345678',
+  login() {
+    return `用户名：${this.username}\r\n密码：${this.password}`
+  }
 }
-console.log("原型对象", User.prototype)
+console.log('原型对象', User.prototype)
 
 // 输出结果：{ username: '小鱼神1024', password: '12345678', login: [Getter] }
 ```
@@ -96,14 +94,14 @@ function User() {
 
 }
 User.prototype = {
-    username: "小鱼神1024",
-    password: "12345678",
-    login() {
-        return `用户名：${this.username}\r\n密码：${this.password}`;
-    }
+  username: '小鱼神1024',
+  password: '12345678',
+  login() {
+    return `用户名：${this.username}\r\n密码：${this.password}`
+  }
 }
-var user = new User();
-console.log("实例对象", user.login())
+const user = new User()
+console.log('实例对象', user.login())
 
 // 输出结果：
 // 用户名：小鱼神1024
@@ -117,7 +115,7 @@ console.log("实例对象", user.login())
 可以通过 `prototype` 获取 `原型` 的 `原型对象`。
 
 ```javascript
-console.log("原型到原型对象", User.prototype)
+console.log('原型到原型对象', User.prototype)
 ```
 
 #### 从原型对象到实例对象
@@ -125,14 +123,14 @@ console.log("原型到原型对象", User.prototype)
 可以通过 `new` 关键字创建 `实例对象`。
 
 ```javascript
-console.log("原型对象到实例对象", new User())
+console.log('原型对象到实例对象', new User())
 ```
 #### 从原型对象到原型
 可以通过 `constructor` 获取 `原型对象` 的 `原型`。
 
 ```javascript
-console.log("原型对象到原型", User.prototype.constructor)
-console.log("是否为原型", User.prototype.constructor === User)
+console.log('原型对象到原型', User.prototype.constructor)
+console.log('是否为原型', User.prototype.constructor === User)
 ```
 
 #### 从原型对象到实例对象
@@ -140,27 +138,27 @@ console.log("是否为原型", User.prototype.constructor === User)
 可以先通过 `constructor` 获取 `原型对象` 的 `原型`，再通过 `new` 关键字创建 `实例对象`。
 
 ```javascript
-console.log("原型对象到实例对象", new User.prototype.constructor())
+console.log('原型对象到实例对象', new User.prototype.constructor())
 ```
 
 #### 从实例对象到原型对象
 
 先通过 `__proto__` 或者 `Object.getPrototypeOf` 获取 `实例对象` 的 `原型对象`。
 ```javascript
-console.log("实例对象到原型对象1", user.__proto__)
-console.log("实例对象到原型对象2", Object.getPrototypeOf(user))
-console.log("是否为原型对象", user.__proto__ === User.prototype)
-console.log("是否为原型对象", Object.getPrototypeOf(user) === User.prototype)
+console.log('实例对象到原型对象1', user.__proto__)
+console.log('实例对象到原型对象2', Object.getPrototypeOf(user))
+console.log('是否为原型对象', user.__proto__ === User.prototype)
+console.log('是否为原型对象', Object.getPrototypeOf(user) === User.prototype)
 ```
 
 #### 从实例对象到原型
 先通过 `__proto__` 或者 `Object.getPrototypeOf` 获取 `实例对象` 的 `原型对象`，再通过 `constructor` 获取 `原型对象` 的 `原型`。
 
 ```javascript
-console.log("实例对象到原型1", user.__proto__.constructor)
-console.log("实例对象到原型2", Object.getPrototypeOf(user).constructor)
-console.log("是否为原型", user.__proto__.constructor === User)
-console.log("是否为原型", Object.getPrototypeOf(user).constructor === User)
+console.log('实例对象到原型1', user.__proto__.constructor)
+console.log('实例对象到原型2', Object.getPrototypeOf(user).constructor)
+console.log('是否为原型', user.__proto__.constructor === User)
+console.log('是否为原型', Object.getPrototypeOf(user).constructor === User)
 ```
 
 ### 总结
@@ -188,4 +186,3 @@ console.log("是否为原型", Object.getPrototypeOf(user).constructor === User)
 这样问题就解决了！
 
 有任何问题欢迎留言讨论！或者加v讨论！
-

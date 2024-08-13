@@ -163,19 +163,19 @@ form-urlencoded 是通过表单提交数据的一种编码方式。在指定 `Co
 参数传递：
 
 ```ts
-import qs from "qs";
+import qs from 'qs'
 
 const result = await axios.post(
-  "/api/user",
+  '/api/user',
   qs.stringify({
     id: 1,
-    name: "小明",
+    name: '小明',
   }),
   {
-    headers: { "content-type": "application/x-www-form-urlencoded" },
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
   }
-);
-console.log(result);
+)
+console.log(result)
 ```
 
 **逐一参数接收：**
@@ -205,15 +205,15 @@ form-data 适合上传文件等二进制数据，在指定 `Content-Type` 为 `m
 参数传递：
 
 ```ts
-const formData = new FormData();
-formData.append("id", 1);
-formData.append("name", "小明");
-formData.append("file", file); // file 为二进制文件
+const formData = new FormData()
+formData.append('id', 1)
+formData.append('name', '小明')
+formData.append('file', file) // file 为二进制文件
 
-const res = await axios.post("/api/user", data, {
-  headers: { "content-type": "multipart/form-data" },
-});
-console.log(res);
+const res = await axios.post('/api/user', data, {
+  headers: { 'content-type': 'multipart/form-data' },
+})
+console.log(res)
 ```
 
 参数接收：
@@ -246,8 +246,8 @@ createUser(@Body() createForms: { id:string, name:string }, @UploadedFiles() fil
 参数传递：
 
 ```ts
-const res = await axios.post("/api/user", { id: 1, name: "小明" });
-console.log(res);
+const res = await axios.post('/api/user', { id: 1, name: '小明' })
+console.log(res)
 ```
 
 **逐一参数接收：**

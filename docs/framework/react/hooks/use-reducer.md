@@ -11,7 +11,7 @@ React Hooks 是 React 16.8 中引入的新特性，它为函数组件带来了�
 `useReducer` 接受两个参数：一个 reducer 函数和一个初始状态。它返回一个包含当前状态和一个 dispatch 函数的数组。
 
 ```javascript
-const [state, dispatch] = useReducer(reducer, initialState);
+const [state, dispatch] = useReducer(reducer, initialState)
 ```
 
 ## 如何定义一个 reducer？
@@ -24,7 +24,7 @@ function reducer(state, action) {
     case 'ACTION_TYPE':
       // 返回新的状态
     default:
-      return state;
+      return state
   }
 }
 ```
@@ -34,31 +34,33 @@ function reducer(state, action) {
 让我们通过一个计数器示例来看看 `useReducer` 的基本用法。
 
 ```javascript
-import React, { useReducer } from 'react';
+import React, { useReducer } from 'react'
 
-const initialState = { count: 0 };
+const initialState = { count: 0 }
 
 function reducer(state, action) {
   switch (action.type) {
     case 'increment':
-      return { count: state.count + 1 };
+      return { count: state.count + 1 }
     case 'decrement':
-      return { count: state.count - 1 };
+      return { count: state.count - 1 }
     default:
-      throw new Error();
+      throw new Error()
   }
 }
 
 function Counter() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <>
-      Count: {state.count}
+      Count:
+      {' '}
+      {state.count}
       <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
       <button onClick={() => dispatch({ type: 'increment' })}>+</button>
     </>
-  );
+  )
 }
 ```
 
@@ -70,14 +72,14 @@ function Counter() {
 function reducer(state, action) {
   switch (action.type) {
     case 'add':
-      return { count: state.count + action.payload };
+      return { count: state.count + action.payload }
     default:
-      return state;
+      return state
   }
 }
 
 // 使用
-dispatch({ type: 'add', payload: 5 });
+dispatch({ type: 'add', payload: 5 })
 ```
 
 ## 使用中间件
@@ -87,14 +89,14 @@ dispatch({ type: 'add', payload: 5 });
 ```javascript
 function logger(reducer) {
   return (state, action) => {
-    console.log('dispatching', action);
-    const nextState = reducer(state, action);
-    console.log('next state', nextState);
-    return nextState;
-  };
+    console.log('dispatching', action)
+    const nextState = reducer(state, action)
+    console.log('next state', nextState)
+    return nextState
+  }
 }
 
-const [state, dispatch] = useReducer(logger(reducer), initialState);
+const [state, dispatch] = useReducer(logger(reducer), initialState)
 ```
 
 ## 总结

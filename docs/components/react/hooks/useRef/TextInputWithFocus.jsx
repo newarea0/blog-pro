@@ -1,11 +1,10 @@
-import { useRef } from "react";
-import { Card, Input, Button, Space } from "antd";
+import { useRef } from 'react'
 
 function TextInputWithFocus() {
-  const inputEl = useRef(null);
+  const inputEl = useRef(null)
   const onButtonClick = () => {
-    inputEl.current.focus();
-  };
+    inputEl.current.focus()
+  }
   return (
     <Card title="案例 demo">
       <Space>
@@ -15,7 +14,7 @@ function TextInputWithFocus() {
         </Button>
       </Space>
     </Card>
-  );
+  )
 }
 
-export default TextInputWithFocus;
+export default TextInputWithFocus

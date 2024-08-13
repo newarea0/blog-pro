@@ -10,14 +10,14 @@
 
 ```javascript
 function App() {
-  const [text, setText] = useState("hello");
-  const deferredText = useDeferredValue(text, { timeoutMs: 2000 });
+  const [text, setText] = useState('hello')
+  const deferredText = useDeferredValue(text, { timeoutMs: 2000 })
   return (
     <div className="App">
-      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <input value={text} onChange={e => setText(e.target.value)} />
       <MySlowList text={deferredText} />
     </div>
-  );
+  )
 }
 ```
 
@@ -27,14 +27,14 @@ function App() {
 
 ```javascript
 function SearchApp() {
-  const [query, setQuery] = useState("");
-  const deferredQuery = useDeferredValue(query, { timeoutMs: 1000 });
+  const [query, setQuery] = useState('')
+  const deferredQuery = useDeferredValue(query, { timeoutMs: 1000 })
   return (
     <div>
-      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <input value={query} onChange={e => setQuery(e.target.value)} />
       <SearchResults query={deferredQuery} />
     </div>
-  );
+  )
 }
 ```
 
@@ -44,14 +44,14 @@ function SearchApp() {
 
 ```javascript
 function AnimationApp() {
-  const [data, setData] = useState(null);
-  const deferredData = useDeferredValue(data, { timeoutMs: 3000 });
+  const [data, setData] = useState(null)
+  const deferredData = useDeferredValue(data, { timeoutMs: 3000 })
   return (
     <div>
       <LoadingAnimation />
       <DataComponent data={deferredData} />
     </div>
-  );
+  )
 }
 ```
 
@@ -78,33 +78,33 @@ function AnimationApp() {
 考虑一个实时搜索的场景：
 
 - 使用 **防抖**：当用户在搜索框中输入时，我们可能会使用防抖来确保只有在用户停止输入一段时间后才发送搜索请求。
-  
+
   ```javascript
   function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
+    let timeout
+    return function (...args) {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => func.apply(this, args), wait)
     };
   }
 
   const handleSearch = debounce((query) => {
     // 发送搜索请求
-  }, 300);
+  }, 300))
   ```
 
 - 使用 **useDeferredValue**：我们可以使输入框立即响应用户输入，而搜索结果的显示可以稍后进行，以提供更流畅的用户体验。
 
   ```javascript
   function SearchApp() {
-    const [query, setQuery] = useState("");
-    const deferredQuery = useDeferredValue(query);
+    const [query, setQuery] = useState('')
+    const deferredQuery = useDeferredValue(query)
     return (
       <div>
         <input value={query} onChange={e => setQuery(e.target.value)} />
         <SearchResults query={deferredQuery} />
       </div>
-    );
+    )
   }
   ```
 

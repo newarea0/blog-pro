@@ -9,7 +9,7 @@ BrowserRouter 是 React Router 库中的一个关键组件，其主要作用是�
 `BrowserRouter` 创建了一个 React 上下文（Context），使得其子组件能够访问路由相关的信息和功能。
 
 ```jsx
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route } from 'react-router-dom'
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" component={<Home />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 function Home() {
@@ -33,7 +33,7 @@ function Home() {
 `BrowserRouter` 会监听浏览器地址栏中的 URL 变化，并根据当前 URL 渲染相应的 React 组件。
 
 ```jsx
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 
 function App() {
   return (
@@ -45,7 +45,7 @@ function App() {
         <Route path="/about" element={<div>About Page</div>} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 ```
 
@@ -54,16 +54,16 @@ function App() {
 利用 HTML5 `history` API，`BrowserRouter` 可以管理浏览历史。
 
 ```jsx
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 function Navigation() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const goToHome = () => {
-    navigate("/home");
-  };
+    navigate('/home')
+  }
 
-  return <button onClick={goToHome}>Go to Home</button>;
+  return <button onClick={goToHome}>Go to Home</button>
 }
 ```
 
@@ -72,15 +72,20 @@ function Navigation() {
 通过与 `Route` 组件配合，`BrowserRouter` 支持动态路由匹配。
 
 ```jsx
-import { Route, useParams } from "react-router-dom";
+import { Route, useParams } from 'react-router-dom'
 
 function App() {
-  return <Route path="/user/:id" element={<UserProfile />} />;
+  return <Route path="/user/:id" element={<UserProfile />} />
 }
 
 function UserProfile() {
-  const { id } = useParams();
-  return <div>User ID: {id}</div>;
+  const { id } = useParams()
+  return (
+    <div>
+      User ID:
+      {id}
+    </div>
+  )
 }
 ```
 
@@ -89,7 +94,7 @@ function UserProfile() {
 `BrowserRouter` 允许你在一个路由组件内部定义另一个路由组件。
 
 ```jsx
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom'
 
 function User() {
   return (
@@ -97,7 +102,7 @@ function User() {
       <Route path="profile" element={<Profile />} />
       <Route path="settings" element={<Settings />} />
     </Routes>
-  );
+  )
 }
 ```
 
@@ -106,19 +111,19 @@ function User() {
 与其他 React Router 钩子（如 `useEffect`）配合，可以实现导航守卫。
 
 ```jsx
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function ProtectedRoute() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      navigate('/login')
     }
-  }, []);
+  }, [])
 
-  return <div>Protected Content</div>;
+  return <div>Protected Content</div>
 }
 ```
 
@@ -127,10 +132,10 @@ function ProtectedRoute() {
 与 React 的 `React.lazy()` 和 `Suspense` 配合使用，可以实现路由级别的代码分割和懒加载。
 
 ```jsx
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-const Home = lazy(() => import("./Home"));
+const Home = lazy(() => import('./Home'))
 
 function App() {
   return (
@@ -141,7 +146,7 @@ function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
-  );
+  )
 }
 ```
 
@@ -150,16 +155,16 @@ function App() {
 通过与 `Link` 和 `Redirect` 组件配合，`BrowserRouter` 可以创建导航链接和执行重定向操作。
 
 ```jsx
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
 
 function Navigation() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <div>
       <Link to="/home">Home</Link>
-      <button onClick={() => navigate("/home")}>Go to Home</button>
+      <button onClick={() => navigate('/home')}>Go to Home</button>
     </div>
-  );
+  )
 }
 ```
 
@@ -168,15 +173,20 @@ function Navigation() {
 你可以通过 React Router 的 API 轻松地获取和操作 URL 的查询参数和状态。
 
 ```jsx
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 function QueryParamsExample() {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
 
-  const name = queryParams.get("name");
+  const name = queryParams.get('name')
 
-  return <div>Name: {name}</div>;
+  return (
+    <div>
+      Name:
+      {name}
+    </div>
+  )
 }
 ```
 
@@ -185,14 +195,14 @@ function QueryParamsExample() {
 `BrowserRouter` 也支持与服务端渲染（SSR）配合使用，这对于 SEO 和性能优化是非常有用的。
 
 ```jsx
-import { StaticRouter as Router, Route } from "react-router-dom";
+import { Route, StaticRouter as Router } from 'react-router-dom'
 
 function App() {
   return (
     <Router location={req.url} context={context}>
       <Route path="/" element={<Home />} />
     </Router>
-  );
+  )
 }
 ```
 

@@ -11,20 +11,20 @@
 想知道 Cookie 里那些关键参数是哪里冒出来的吗？用下面的代码，锁定那些“神秘”的小 Cookie 们：
 
 ```javascript
-var tmpCookie = "";
-Object.defineProperty(document, "cookie", {
-  set: function (value) {
-    if (typeof value === "string" && value.includes("a1")) {
-      console.log("Hook捕获到cookie设置->", value);
-      debugger;
+let tmpCookie = ''
+Object.defineProperty(document, 'cookie', {
+  set(value) {
+    if (typeof value === 'string' && value.includes('a1')) {
+      console.log('Hook捕获到cookie设置->', value)
+      debugger
     }
-    tmpCookie = value;
-    return value;
+    tmpCookie = value
+    return value
   },
-  get: function () {
-    return tmpCookie;
+  get() {
+    return tmpCookie
   },
-});
+})
 ```
 
 ### Header Hook
@@ -32,13 +32,13 @@ Object.defineProperty(document, "cookie", {
 用这个小魔法，瞄准请求头中的关键参数，比如 Authorization，察觉到就断点：
 
 ```javascript
-var originalSetRequestHeader = window.XMLHttpRequest.prototype.setRequestHeader;
+const originalSetRequestHeader = window.XMLHttpRequest.prototype.setRequestHeader
 window.XMLHttpRequest.prototype.setRequestHeader = function (header, value) {
-  if (header === "Authorization") {
-    debugger;
+  if (header === 'Authorization') {
+    debugger
   }
-  return originalSetRequestHeader.apply(this, arguments);
-};
+  return originalSetRequestHeader.apply(this, arguments)
+}
 ```
 
 ### Hook 过 debugger
@@ -46,26 +46,26 @@ window.XMLHttpRequest.prototype.setRequestHeader = function (header, value) {
 #### constructor 构造函数中的 debugger
 
 ```javascript
-var _constructor = constructor;
+const _constructor = constructor
 Function.prototype.constructor = function (string) {
-  if (string == "debugger") {
-    return null;
+  if (string == 'debugger') {
+    return null
   }
-  return _constructor(string);
-};
+  return _constructor(string)
+}
 ```
 
 #### eval 构造函数中的 debugger
 
 ```javascript
 (function () {
-  "use strict";
-  var eval_ = window.eval;
+  'use strict'
+  const eval_ = window.eval
   window.eval = function (x) {
-    eval_(x.replace("debugger;", "  ; "));
-  };
-  window.eval.toString = eval_.toString;
-})();
+    eval_(x.replace('debugger;', '  ; '))
+  }
+  window.eval.toString = eval_.toString
+})()
 ```
 
 ### URL Hook
@@ -73,13 +73,13 @@ Function.prototype.constructor = function (string) {
 这一招专治 URL 里的“鬼鬼祟祟”。任何带有 `comment` 的 URL 通通站住：
 
 ```javascript
-var originalOpen = window.XMLHttpRequest.prototype.open;
+const originalOpen = window.XMLHttpRequest.prototype.open
 window.XMLHttpRequest.prototype.open = function (method, url) {
-  if (typeof url === "string" && url.includes("comment")) {
-    debugger;
+  if (typeof url === 'string' && url.includes('comment')) {
+    debugger
   }
-  return originalOpen.apply(this, arguments);
-};
+  return originalOpen.apply(this, arguments)
+}
 ```
 
 ### JSON.stringify Hook
@@ -87,14 +87,14 @@ window.XMLHttpRequest.prototype.open = function (method, url) {
 让 JSON.stringify 无法藏身，所有的序列化行动皆在我们掌控中：
 
 ```javascript
-JSON.stringify_ = JSON.stringify;
+JSON.stringify_ = JSON.stringify
 JSON.stringify = function () {
-  if (arguments[0] && arguments[0]["time"]) {
-    debugger;
+  if (arguments[0] && arguments[0].time) {
+    debugger
   }
-  let result = JSON.stringify_.apply(this, arguments);
-  return result;
-};
+  const result = JSON.stringify_.apply(this, arguments)
+  return result
+}
 ```
 
 ### JSON.parse Hook
@@ -102,13 +102,13 @@ JSON.stringify = function () {
 解析 JSON 字符串时，不让任何小可爱躲过我们的视线：
 
 ```javascript
-JSON.parse_ = JSON.parse;
+JSON.parse_ = JSON.parse
 JSON.parse = function () {
-  if (typeof arguments[0] === "string" && arguments[0].includes("ab")) {
-    debugger;
+  if (typeof arguments[0] === 'string' && arguments[0].includes('ab')) {
+    debugger
   }
-  return JSON.parse_.apply(this, arguments);
-};
+  return JSON.parse_.apply(this, arguments)
+}
 ```
 
 ### canvas hook
@@ -116,17 +116,13 @@ JSON.parse = function () {
 它常用于二维码场景
 
 ```javascript
-let create_element = document.createElement.bind(doument);
+const create_element = document.createElement.bind(doument)
 
 document.createElement = function (_element) {
-  if (_element === "canvas") {
-    debugger;
+  if (_element === 'canvas') {
+    debugger
   }
-  return create_element(_element);
-};
+  return create_element(_element)
+}
 ```
 你还知道其他常用 `Hook` 方法吗？在评论区留言吧！
-
-
-
-

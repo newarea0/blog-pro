@@ -16,7 +16,7 @@ async function fetchData() {
 
 ```js
 async function fetchData() {
-  const result = await someAsyncOperation();
+  const result = await someAsyncOperation()
   // 使用 result 处理异步操作的结果
 }
 ```
@@ -26,9 +26,10 @@ async function fetchData() {
 ```js
 async function fetchData() {
   try {
-    const result = await someAsyncOperation();
+    const result = await someAsyncOperation()
     // 使用 result 处理异步操作的结果
-  } catch (error) {
+  }
+  catch (error) {
     // 处理异步操作的错误
   }
 }
@@ -46,28 +47,30 @@ async function fetchData() {
 ```js
 async function fetchData() {
   try {
-    const response = await fetch("https://api.example.com/data");
-    const data = await response.json();
+    const response = await fetch('https://api.example.com/data')
+    const data = await response.json()
     // 处理获取到的数据
-    return data;
-  } catch (error) {
+    return data
+  }
+  catch (error) {
     // 处理错误
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data')
   }
 }
 
 async function main() {
   try {
-    const data = await fetchData();
+    const data = await fetchData()
     // 使用获取到的数据
-    console.log(data);
-  } catch (error) {
+    console.log(data)
+  }
+  catch (error) {
     // 处理错误
-    console.error(error);
+    console.error(error)
   }
 }
 
-main();
+main()
 ```
 
 ## async/await 实现原理分析
@@ -83,33 +86,35 @@ async/await 的实现原理可以简单概括为以下几个步骤：
 
 ```js
 function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 async function fetchData() {
   try {
-    console.log("Fetching data...");
-    await delay(2000); // 模拟异步操作
-    console.log("Data fetched!");
-    return "Data";
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-    throw error;
+    console.log('Fetching data...')
+    await delay(2000) // 模拟异步操作
+    console.log('Data fetched!')
+    return 'Data'
+  }
+  catch (error) {
+    console.error('Failed to fetch data:', error)
+    throw error
   }
 }
 
 async function main() {
   try {
-    console.log("Start");
-    const data = await fetchData();
-    console.log("Received:", data);
-    console.log("End");
-  } catch (error) {
-    console.error("Error:", error);
+    console.log('Start')
+    const data = await fetchData()
+    console.log('Received:', data)
+    console.log('End')
+  }
+  catch (error) {
+    console.error('Error:', error)
   }
 }
 
-main();
+main()
 ```
 
 ## async/await 与 Promise 的区别
