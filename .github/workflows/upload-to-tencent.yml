@@ -4,7 +4,7 @@ on:
   # 每当 push 到远程 master 分支时触发 Github Action
   push:
     branches:
-      - master
+      - main
 
 jobs:
   upload-to-tencent:

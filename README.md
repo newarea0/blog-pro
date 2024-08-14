@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">
-全栈小册，测试
+全栈小册
 </h1>
 
 <p align="center">
