@@ -3,6 +3,7 @@ import defaultTheme from 'vitepress/theme'
 import { watch } from 'vue'
 import busuanzi from 'busuanzi.pure.js'
 import PluginGoogleAnalytics from '../plugins/plugin-google-analytics'
+import MyLayout from './MyLayout.vue'
 
 import 'uno.css'
 import './styles/rainbow.css'
@@ -34,6 +35,8 @@ function updatePageStyle(value: boolean) {
 
 const theme: Theme = {
   ...defaultTheme,
+  // 使用注入插槽的包装组件覆盖 Layout
+  Layout: MyLayout,
   enhanceApp({ router }: EnhanceAppContext) {
     if (typeof window === 'undefined')
       return

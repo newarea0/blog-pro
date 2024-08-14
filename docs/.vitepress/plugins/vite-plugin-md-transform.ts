@@ -40,8 +40,7 @@ async function getMarkdownComponents() {
   //   "Gitalk",
   // ])}`;
   const footer = `${getNoSSRComponents([
-    'CopyRight',
-    'Gitalk',
+    // 'Gitalk',
   ])}`
   return {
     footer,

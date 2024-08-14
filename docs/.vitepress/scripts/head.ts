@@ -55,14 +55,6 @@ const head: HeadConfig[] = [
       href: 'https://fonts.gstatic.com',
     },
   ],
-  [
-    'link',
-    {
-      rel: 'stylesheet',
-      href: 'https://unpkg.com/gitalk/dist/gitalk.css',
-    },
-  ],
-  ['script', { src: 'https://unpkg.com/gitalk/dist/gitalk.min.js' }],
 ]
 
 export default head
