@@ -1,0 +1,24 @@
+name: Synchronize to Gitee
+
+on: 
+  - push
+  - delete
+
+jobs:
+  synchronize-to-gitee:
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: wangchucheng/git-repo-sync@v0.1.0
+        with:
+          # Gitee 仓库地址
+          target-url: https://gitee.com/stormzhangbx/blog.git
+          # Gitee 用户名
+          target-username: stormzhangbx
+          # 存储在 GitHub Secrets 中的 Gitee 令牌
+          target-token: ${{ secrets.GITEE_TOKEN }}

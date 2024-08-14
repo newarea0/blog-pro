@@ -1,34 +1,40 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import 'gitalk/dist/gitalk.css'
+import Gitalk from 'gitalk'
+import { nextTick, onMounted } from 'vue'
+
+let pathname = decodeURI(window.location.pathname)
+if (pathname.length > 48) {
+  pathname = pathname.slice(-48)
+}
+const commentConfig: Record<string, any> = {
+  // 是否开启
+  enable: true,
+  // clientID
+  clientID: '570a9490e028ba1dc3c8',
+  // clientSecret
+  clientSecret: 'f8bd88ce84a1cbc311a62ff13026c6e04b643874',
+  // 评论项目名
+  repo: 'gitalk-comments',
+  owner: 'dapandocs',
+  admin: ['dapandocs'],
+  githubID: 'dapandocs',
+  id: pathname,
+  language: 'zh-CN',
+  distractionFreeMode: true,
+}
 
 onMounted(() => {
-  let pathname = decodeURI(window.location.pathname)
-  if (pathname.length > 48) {
-    pathname = pathname.slice(-48)
-  }
-  const commentConfig: Record<string, any> = {
-    // 是否开启
-    enable: true,
-    // clientID
-    clientID: '570a9490e028ba1dc3c8',
-    // clientSecret
-    clientSecret: 'f8bd88ce84a1cbc311a62ff13026c6e04b643874',
-    // 评论项目名
-    repo: 'gitalk-comments',
-    owner: 'dapandocs',
-    admin: ['dapandocs'],
-    githubID: 'dapandocs',
-    id: pathname,
-    language: 'zh-CN',
-    distractionFreeMode: true,
-  }
   try {
     // @ts-ignore
     const gitalk = new Gitalk(commentConfig)
+
+    // nextTick(() => {
     gitalk.render('gitalk-container')
+    // })
   }
   catch (error) {
-    console.log('gitalk render fail.')
+    console.log('gitalk render fail.', error)
   }
 })
 </script>
