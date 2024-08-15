@@ -11,14 +11,14 @@ const commentConfig: Record<string, any> = {
   // 是否开启
   enable: true,
   // clientID
-  clientID: '570a9490e028ba1dc3c8',
+  clientID: 'Ov23liiWc8rjOJr4ix9p',
   // clientSecret
-  clientSecret: 'f8bd88ce84a1cbc311a62ff13026c6e04b643874',
+  clientSecret: '2666e4f3a0e078acb19905e1c0eb30789fbabbcc',
   // 评论项目名
   repo: 'gitalk-comments',
-  owner: 'dapandocs',
-  admin: ['dapandocs'],
-  githubID: 'dapandocs',
+  owner: 'stormzhangbx',
+  admin: ['stormzhangbx'],
+  githubID: 'stormzhangbx',
   id: pathname,
   language: 'zh-CN',
   distractionFreeMode: true,
